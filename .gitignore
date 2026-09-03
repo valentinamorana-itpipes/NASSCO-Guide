@@ -1,0 +1,5 @@
+# Source training decks (large binary files, not part of the shipped extension)
+ppts/
+
+# Local Claude Code session state (machine-specific, not project config)
+.claude/
