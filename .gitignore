@@ -3,3 +3,6 @@ ppts/
 
 # Local Claude Code session state (machine-specific, not project config)
 .claude/
+
+.vercel
+.env*

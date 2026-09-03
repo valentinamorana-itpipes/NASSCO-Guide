@@ -1,0 +1,5 @@
+# Source training decks (large binary files, not needed for the web preview)
+ppts/
+
+# Local Claude Code session state
+.claude/

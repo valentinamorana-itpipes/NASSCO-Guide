@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NASSCO PACP Guide — Preview</title>
+  <link rel="stylesheet" href="css/popup.css" />
+  <style>
+    html, body {
+      width: auto;
+      min-height: 100vh;
+      max-height: none;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--bg-alt);
+    }
+    body {
+      padding: 40px 16px 56px;
+      gap: 18px;
+    }
+
+    #preview-banner {
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    #preview-banner strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    #preview-banner a { color: var(--codes); font-weight: 600; text-decoration: none; }
+    #preview-banner a:hover { text-decoration: underline; }
+
+    #app-shell {
+      width: 380px;
+      min-height: 520px;
+      max-height: 660px;
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lift);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="preview-banner">
+    <strong>NASSCO PACP Guide — live preview</strong>
+    This is the exact Chrome extension popup, running in a browser tab so the
+    whole team can review it and leave feedback in the same place.
+    <a href="https://itpipes.slack.com/archives/C0BUTN9MN82" target="_blank" rel="noopener noreferrer">#feedback on Slack</a>
+  </div>
+
+  <div id="app-shell">
+    <header id="app-header">
+      <button id="back-btn" class="icon-btn" aria-label="Back" hidden>&#8592;</button>
+      <div id="header-titles">
+        <h1 id="header-title">NASSCO PACP Guide</h1>
+        <p id="header-subtitle">Pick a pipe behavior to get started</p>
+      </div>
+    </header>
+
+    <div id="search-bar">
+      <input id="search-input" type="text" placeholder="Search a code, material, or keyword…" autocomplete="off" />
+    </div>
+
+    <div id="version-bar" class="codes-cat" hidden>
+      <span id="version-bar-label">Version:</span>
+      <div id="version-bar-buttons" role="group" aria-label="PACP version filter">
+        <button type="button" class="version-btn" data-v="v6">V6</button>
+        <button type="button" class="version-btn" data-v="v7">V7</button>
+        <button type="button" class="version-btn" data-v="both">Both</button>
+      </div>
+    </div>
+
+    <main id="app-main"></main>
+
+    <footer id="app-footer" hidden>
+      <span>Want to edit or add something?</span>
+      <a href="https://itpipes.slack.com/archives/C0BUTN9MN82" target="_blank" rel="noopener noreferrer">Tell us on Slack</a>
+    </footer>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/popup.js"></script>
+</body>
+</html>
