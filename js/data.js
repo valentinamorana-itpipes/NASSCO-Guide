@@ -511,7 +511,7 @@ const CODES = {
   lineDirection: {
     id: "lineDirection",
     label: "Line Direction",
-    blurb: "Code: L. A deliberate, gradual construction feature — not a defect. Descriptors combine direction: D, L, LD, LU, R, RD, RU, U.",
+    blurb: "Code: L. A deliberate, gradual construction feature — not a defect. Full codes are L + direction: LL/LR/LU/LD for a single direction, LLU/LLD/LRU/LRD for a diagonal.",
     versions: "V6 V7 V8",
     generalRules: [
       "Expressed as % deviation: a 90° bend = 100%, a 45° bend = 50%, a 22.5° bend = 25%.",
@@ -523,14 +523,14 @@ const CODES = {
       {
         title: "Directional Descriptors",
         defects: [
-          { code: "L", name: "Left", desc: "Line deviates to the left. Sometimes logged informally as \"LL\" (Line Left) in remarks/training notes to distinguish it from JAL." },
-          { code: "R", name: "Right", desc: "Line deviates to the right. Sometimes logged informally as \"LR\" (Line Right)." },
-          { code: "U", name: "Up", desc: "Line deviates up." },
-          { code: "D", name: "Down", desc: "Line deviates down." },
-          { code: "LU", name: "Left Up", desc: "Line deviates to the left and up." },
-          { code: "LD", name: "Left Down", desc: "Line deviates to the left and down." },
-          { code: "RU", name: "Right Up", desc: "Line deviates to the right and up." },
-          { code: "RD", name: "Right Down", desc: "Line deviates to the right and down." }
+          { code: "LL", name: "Left", desc: "Line deviates to the left." },
+          { code: "LR", name: "Right", desc: "Line deviates to the right." },
+          { code: "LU", name: "Up", desc: "Line deviates up." },
+          { code: "LD", name: "Down", desc: "Line deviates down." },
+          { code: "LLU", name: "Left Up", desc: "Line deviates to the left and up." },
+          { code: "LLD", name: "Left Down", desc: "Line deviates to the left and down." },
+          { code: "LRU", name: "Right Up", desc: "Line deviates to the right and up." },
+          { code: "LRD", name: "Right Down", desc: "Line deviates to the right and down." }
         ]
       },
       {
