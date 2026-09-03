@@ -48,7 +48,7 @@ const MATERIALS = {
           "Shape": "Circular",
           "Coating": "Usually a concrete layer plus an epoxy layer on top",
           "Color": "Metal gray/silver; concrete coating white/gray; epoxy coating black",
-          "Joint Lengths": "18–20 in — the longest of any material; the best trait for telling DIP apart from CAS",
+          "Joint Lengths": "18–20 ft / 5.5–6 m — the longest of any material; the best trait for telling DIP apart from CAS",
           "Lifespan": "~100 years (in use since the 1950s; standard by the 1970s)"
         },
         groups: [
@@ -251,14 +251,6 @@ const MATERIALS = {
               { code: "SAM", name: "Surface Damage – Aggregate Missing", desc: "Most severe stage: aggregate has completely fallen out, leaving visible pits/pockmarks/voids." },
               { code: "SZ", name: "Surface Damage – Other", desc: "Used for chipped joints in CP (instead of SSS), since concrete rarely spalls that way — SZ is the more appropriate code for chipped joints." }
             ]
-          },
-          {
-            title: "Structural (reinforcement-specific)",
-            defects: [
-              { code: "SRV", name: "Surface Damage – Reinforcement Visible", desc: "Concrete has eroded (often H2S-related) enough that reinforcement rebar is visible, but not yet projecting into the pipe." },
-              { code: "SRP", name: "Surface Damage – Reinforcement Projecting", desc: "Erosion is now serious; rebar is almost fully exposed and appears to project into the pipe." },
-              { code: "SRC", name: "Surface Damage – Reinforcement Corroded", desc: "Rebar shows a texture/color change from corrosion, sometimes with pieces missing." }
-            ]
           }
         ],
         notes: "Infiltration rule: if the pipe wall is wet in general, a stain there is normal; but if the wall is dry and a specific spot is wet, that's a true weeper — flag it for BQA recode (code IWB)."
@@ -341,7 +333,7 @@ const MATERIALS = {
           "Shape": "Circular",
           "Coating": "Glazed",
           "Color": "Most commonly orange when new; older pipe turns darker/browner, though joints and taps stay more noticeably orange",
-          "Joint Lengths": "2–6 inches — very short and frequent joints",
+          "Joint Lengths": "2–6 ft / 0.6–1.8 m — very short and frequent joints",
           "Lifespan": "~65 years (in use since the 1800s; standard by the 1920s)"
         },
         groups: [
