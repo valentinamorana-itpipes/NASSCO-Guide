@@ -71,7 +71,7 @@
   }
 
   function renderHome() {
-    headerTitle.textContent = "NASSCO PACP Field Guide";
+    headerTitle.textContent = "NASSCO PACP Guide";
     headerSubtitle.textContent = "Pick a section to get started";
 
     const totalMaterials = MATERIALS.flexible.items.length + MATERIALS.rigid.items.length;

@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "NASSCO PACP Field Guide",
+  "name": "NASSCO PACP Guide",
   "version": "1.0.0",
   "description": "Quick memory-aid for new sewer CCTV coders: pick flexible or rigid pipe, then a material, to see its most common PACP defect codes.",
   "action": {

@@ -1,5 +1,5 @@
 /*
-  NASSCO PACP Field Guide — reference data
+  NASSCO PACP Guide — reference data
   Compiled from: NASSCO PACP v7.0.0 (2015) manual sections 4-7, Appendix A,
   and an internal field-coding training reference.
   Not an official NASSCO document — a memory aid for new coders.
@@ -528,6 +528,19 @@ const CODES = {
       "No joint or clock notation applies to Line Direction codes."
     ],
     groups: [
+      {
+        title: "Directional Descriptors",
+        defects: [
+          { code: "L", name: "Left", desc: "Line deviates to the left. Sometimes logged informally as \"LL\" (Line Left) in remarks/training notes to distinguish it from JAL." },
+          { code: "R", name: "Right", desc: "Line deviates to the right. Sometimes logged informally as \"LR\" (Line Right)." },
+          { code: "U", name: "Up", desc: "Line deviates up." },
+          { code: "D", name: "Down", desc: "Line deviates down." },
+          { code: "LU", name: "Left Up", desc: "Line deviates to the left and up." },
+          { code: "LD", name: "Left Down", desc: "Line deviates to the left and down." },
+          { code: "RU", name: "Right Up", desc: "Line deviates to the right and up." },
+          { code: "RD", name: "Right Down", desc: "Line deviates to the right and down." }
+        ]
+      },
       {
         title: "Line Direction vs. JAM / JAL",
         defects: [
