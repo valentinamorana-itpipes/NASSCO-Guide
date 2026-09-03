@@ -48,6 +48,7 @@
     const seen = new Set();
     const out = [];
     for (const d of defects) {
+      if (d.noV6) continue;
       const code = d.codeV6 || d.code;
       if (seen.has(code)) continue;
       seen.add(code);
