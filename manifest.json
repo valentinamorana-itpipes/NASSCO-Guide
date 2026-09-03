@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NASSCO PACP Guide",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Field reference for NASSCO PACP sewer coding — pipe materials, the full Codes catalog, Pure vs Standard comparisons, and Operator Review guidance, with a V6/V7/V8 filter.",
   "action": {
     "default_popup": "popup.html",
