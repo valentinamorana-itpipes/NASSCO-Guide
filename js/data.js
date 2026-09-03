@@ -361,7 +361,6 @@ const CODES = {
     id: "continuousDefects",
     label: "Continuous Defects Strategy",
     blurb: "How far a Truly Continuous or Repeated Continuous defect is allowed to wander, and which code families it applies to at all.",
-    versions: "V6 V7 V8",
     generalRules: [
       "Defects inside a continuous defect can wander up and down to two clock positions.",
       "Defects separated by more than two clock positions must be split into two codes.",
@@ -429,7 +428,6 @@ const CODES = {
     id: "taps",
     label: "Taps",
     blurb: "Code: T. Descriptors: B (Break-in), F (Factory), R (Rehabilitated), S (Saddle). Modifiers, most to least significant: I (Intruding) > D (Defective) > C (Capped) > A (Activity) > B (Abandoned).",
-    versions: "V6 V7 V8",
     generalRules: [
       "Diameter of the tap is entered in the Value Dimension 1st column, to the nearest inch or 10mm.",
       "A single clock position records the tap's location.",
@@ -482,7 +480,6 @@ const CODES = {
     id: "sealingMaterial",
     label: "Intruding Sealing Material",
     blurb: "Code: IS. Descriptors: GT (Grout), SR (Sealing Ring), Z (Other). Modifiers on ISSR only (required in V7/V8): B (Broken), H (Hanging), L (Loose/Poorly Fitting).",
-    versions: "V6 V7 V8",
     generalRules: [
       "All IS codes fall at a joint — the Joint (J) notation always applies.",
       "Coded as Repeated when the material is seen at 3 out of 4 joints.",
@@ -512,7 +509,6 @@ const CODES = {
     id: "lineDirection",
     label: "Line Direction",
     blurb: "Code: L. A deliberate, gradual construction feature — not a defect. Full codes are L + direction: LL/LR/LU/LD for a single direction, LLU/LLD/LRU/LRD for a diagonal.",
-    versions: "V6 V7 V8",
     generalRules: [
       "Expressed as % deviation: a 90° bend = 100%, a 45° bend = 50%, a 22.5° bend = 25%.",
       "Truly Continuous applies where the direction change is a bend greater than 3 ft / 1 m.",
@@ -546,7 +542,6 @@ const CODES = {
     id: "accessPoints",
     label: "Access Points",
     blurb: "Code: A. Required at the start of every survey, and at the end wherever the access point was reached. Modifiers: M (Mainline/right-of-way), P (Property), H (House).",
-    versions: "V6 V7 V8",
     generalRules: [
       "Value is used for ATC only, recording the tee's diameter. Clocks are used for ATC only, marking where the tee connection meets the pipe being inspected.",
       "Remarks must include the specific structure name."
@@ -574,7 +569,6 @@ const CODES = {
     id: "misc",
     label: "Miscellaneous",
     blurb: "Code: M. General condition and survey-status codes that don't fit any other family — water level, survey abandonment, material/shape/lining changes, and general observations.",
-    versions: "V6 V7 V8",
     groups: [
       {
         title: "Water Level & Survey Status",
@@ -610,7 +604,6 @@ const CODES = {
     id: "om",
     label: "Operation & Maintenance",
     blurb: "Code families: D (Deposits), R (Roots), I (Infiltration), OB (Obstacles), V (Vermin), G (Grout Test and Seal) — conditions from ongoing use and groundwater, not construction or structural failure.",
-    versions: "V6 V7 V8",
     generalRules: [
       "Deposits (D) and Obstacles (OB) record % cross-sectional loss (CSL) to the nearest 5% in the Value % column.",
       "Roots (R) also record CSL to the nearest 5%, except the F (Fine) descriptor, which doesn't use Value.",
@@ -625,7 +618,7 @@ const CODES = {
           { code: "DAE", name: "Encrustation", desc: "A mineral deposit from ongoing groundwater leakage — organic, not man-made. Needs an external source of ingression (a defective joint, fracture, hole, deformation, or defective tap connection); if none of those are visible, DAE probably isn't the right code. Usually shows up together with its source defect and an infiltration code as three separate entries at the same location. In metal pipe, tuberculation is coded as DAE. NASSCO Pure codes at >1%; sanity coding waits for >5%." },
           { code: "DAGS", name: "Grease", desc: "A man-made deposit from an external source (kitchens, bathroom products) — never created by soil or nature, so taps/access points are the source to check first. Builds up above the water line in parallel lines, or in a \"shelf\" pattern with round, mountain-like edges; beige/grey/yellowish, similar to candle wax. Use two codes and clock positions for both sides (or a single entry with two clocks in V8). NASSCO Pure codes at ≥1%; sanity coding waits for ≥5%." },
           { code: "DAR", name: "Ragging", desc: "Human-made debris (towels, diapers, feminine products, toilet paper) caught on a defect or sewer component. Sanitary debris is expected in sanitary sewers, so it doesn't always need coding — code it once it's created a real problem: significant mass, snagged on something, or obstructing flow. If it points to surcharging, add MGO \"evidence of surcharging.\"" },
-          { code: "DAZ", name: "Other", desc: "Unclassified attached deposits — remarks mandatory (e.g. \"Unknown deposit\"). Also used for cockroach nests (remark \"Cockroach nest\"), non-DAGS scale/slime layers (remark \"Slime layer\"), and in V8, metal-pipe tuberculation. Only code once it reaches 5% or more." }
+          { code: "DAZ", name: "Other", desc: "Unclassified attached deposits — remarks mandatory (e.g. \"Unknown deposit\"). Also used for cockroach nests (remark \"Cockroach nest\"), non-DAGS scale/slime layers (remark \"Slime layer\"), and in V8, metal-pipe tuberculation. Sanity coding waits for ≥5%; NASSCO Pure codes at any %." }
         ]
       },
       {
@@ -710,7 +703,6 @@ const CODES = {
     id: "structural",
     label: "Structural Defects",
     blurb: "The full family of structural defect codes: Cracks, Fractures, Broken, Hole, Deformed/Buckling, Collapse, Joints, Surface Damage, Lining Features, Weld Failure, Point Repair, and Brickwork.",
-    versions: "V6 V7 V8",
     groups: [
       {
         title: "Cracks (C) — visible, NOT visibly open",
