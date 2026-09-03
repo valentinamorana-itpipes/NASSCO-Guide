@@ -1,19 +1,19 @@
 :root {
-  /* Five section accents share one formula (HSL 58/32 base, 64/22 shade, 48/95
-     tint) and are only rotated by hue, so they read as one family:
-     teal 172° · rigid 16° · codes 228° · pure 42° · opr 278° */
+  /* Teal/rigid/opr share one formula (HSL 58/32 base, 64/22 shade, 48/95
+     tint), only rotated by hue. Codes and Pure are pinned to the ITpipes
+     brand palette instead: blue #2D5DA0 and orange #EF7622. */
   --teal: #228174;
   --teal-dark: #145c52;
   --teal-tint: #ecf8f7;
   --rigid: #813c22;
   --rigid-dark: #5c2714;
   --rigid-tint: #f8efec;
-  --codes: #223581;
-  --codes-dark: #14235c;
-  --codes-tint: #eceff8;
-  --pure: #816522;
-  --pure-dark: #5c4614;
-  --pure-tint: #f8f5ec;
+  --codes: #2d5da0;
+  --codes-dark: #1a3e70;
+  --codes-tint: #edf1f8;
+  --pure: #ef7622;
+  --pure-dark: #ac5415;
+  --pure-tint: #f9f1eb;
   --opr: #5e2281;
   --opr-dark: #42145c;
   --opr-tint: #f4ecf8;
@@ -33,20 +33,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Same five hues, restepped for the dark surface (HSL 55/68 base,
-       50/56 shade, 38/15 tint) — not a separate palette. */
+    /* Teal/rigid/opr restepped for the dark surface (HSL 55/68 base,
+       50/56 shade, 38/15 tint). Codes and Pure are the same brand hues,
+       just lightened for legibility on the dark background. */
     --teal: #81dace;
     --teal-dark: #57c7b8;
     --teal-tint: #183531;
     --rigid: #da9881;
     --rigid-dark: #c77557;
     --rigid-tint: #351f18;
-    --codes: #8192da;
-    --codes-dark: #576dc7;
-    --codes-tint: #181e35;
-    --pure: #dabf81;
-    --pure-dark: #c7a557;
-    --pure-tint: #352c18;
+    --codes: #7ea6dd;
+    --codes-dark: #5485c9;
+    --codes-tint: #182435;
+    --pure: #e99b63;
+    --pure-dark: #dc7c38;
+    --pure-tint: #362416;
     --opr: #b981da;
     --opr-dark: #9e57c7;
     --opr-tint: #2a1835;
@@ -85,7 +86,7 @@ html, body {
   align-items: center;
   gap: 10px;
   padding: 13px 14px 11px;
-  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+  background: linear-gradient(135deg, var(--codes) 0%, var(--codes-dark) 100%);
   color: white;
   flex-shrink: 0;
   overflow: hidden;
@@ -161,6 +162,49 @@ html, body {
   font-family: inherit;
 }
 #search-input:focus-visible { outline: 2px solid var(--teal); outline-offset: -1px; }
+
+/* ---- Codes: PACP version filter ---- */
+#version-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+#version-bar-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+#version-bar-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.version-btn {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  border-radius: 7px;
+  padding: 4px 9px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+}
+.version-btn:hover { border-color: var(--codes); }
+.version-btn.active {
+  background: var(--codes);
+  border-color: var(--codes);
+  color: white;
+}
 
 #app-main {
   flex: 1;
@@ -557,7 +601,7 @@ html, body {
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 10px;
-  color: var(--pure);
+  color: var(--pure-dark);
   flex-shrink: 0;
 }
 

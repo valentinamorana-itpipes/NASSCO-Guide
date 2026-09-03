@@ -4,9 +4,36 @@
   const backBtn = document.getElementById("back-btn");
   const main = document.getElementById("app-main");
   const searchInput = document.getElementById("search-input");
+  const versionBar = document.getElementById("version-bar");
+  const versionBarButtons = document.getElementById("version-bar-buttons");
 
   // Navigation stack of view descriptors: { view, catKey, materialId }
   let stack = [{ view: "home" }];
+
+  // Codes version filter: "v6" | "v7" | "both". Persists across popups.
+  let versionFilter = "both";
+  try {
+    versionFilter = localStorage.getItem("nassco-version-filter") || "both";
+  } catch (e) { /* localStorage unavailable — fall back to "both" */ }
+
+  function setVersionFilter(v) {
+    versionFilter = v;
+    try { localStorage.setItem("nassco-version-filter", v); } catch (e) { /* ignore */ }
+    render();
+  }
+
+  versionBarButtons.addEventListener("click", (ev) => {
+    const btn = ev.target.closest(".version-btn");
+    if (btn) setVersionFilter(btn.dataset.v);
+  });
+
+  // Resolves a defect's display code against the active version filter.
+  // Defects with a "codeV6" field have a different code name pre-V7.
+  function displayCode(d) {
+    if (versionFilter === "v6") return d.codeV6 || d.code;
+    if (versionFilter === "v7") return d.code;
+    return d.codeV6 ? `${d.code} / ${d.codeV6}` : d.code;
+  }
 
   function esc(str) {
     const d = document.createElement("div");
@@ -58,6 +85,11 @@
     const state = currentState();
     backBtn.hidden = stack.length <= 1;
     main.innerHTML = "";
+
+    versionBar.hidden = !(state.view === "codes-home" || state.view === "codes-section");
+    for (const btn of versionBarButtons.querySelectorAll(".version-btn")) {
+      btn.classList.toggle("active", btn.dataset.v === versionFilter);
+    }
 
     if (state.view === "home") return renderHome();
     if (state.view === "materials-home") return renderMaterialsHome();
@@ -205,7 +237,7 @@
         card.className = "defect-card";
         card.innerHTML = `
           <div class="dc-top">
-            <span class="defect-code">${esc(d.code)}</span>
+            <span class="defect-code">${esc(displayCode(d))}</span>
             <span class="defect-name">${esc(d.name)}</span>
           </div>
           <div class="defect-desc">${esc(d.desc)}</div>
@@ -466,7 +498,7 @@
           ${matIcon("solid", "on-pure")}
           <div class="ri-body">
             <div class="ri-top">
-              ${row.code ? `<span class="defect-code" style="color:var(--pure)">${esc(row.code)}</span>` : ""}
+              ${row.code ? `<span class="defect-code" style="color:var(--pure-dark)">${esc(row.code)}</span>` : ""}
               <span class="mc-name">${esc(row.name)}</span>
             </div>
             <div class="ri-path">Pure vs Standard</div>

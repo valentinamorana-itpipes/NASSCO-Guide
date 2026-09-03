@@ -18,6 +18,15 @@
     <input id="search-input" type="text" placeholder="Search a code, material, or keyword…" autocomplete="off" />
   </div>
 
+  <div id="version-bar" class="codes-cat" hidden>
+    <span id="version-bar-label">Version:</span>
+    <div id="version-bar-buttons" role="group" aria-label="PACP version filter">
+      <button type="button" class="version-btn" data-v="v6">V6</button>
+      <button type="button" class="version-btn" data-v="v7">V7</button>
+      <button type="button" class="version-btn" data-v="both">Both</button>
+    </div>
+  </div>
+
   <main id="app-main"></main>
 
   <script src="js/data.js"></script>
