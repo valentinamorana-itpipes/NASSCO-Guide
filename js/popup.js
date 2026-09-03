@@ -6,6 +6,7 @@
   const searchInput = document.getElementById("search-input");
   const versionBar = document.getElementById("version-bar");
   const versionBarButtons = document.getElementById("version-bar-buttons");
+  const appFooter = document.getElementById("app-footer");
 
   // Navigation stack of view descriptors: { view, catKey, materialId }
   let stack = [{ view: "home" }];
@@ -110,6 +111,7 @@
     for (const btn of versionBarButtons.querySelectorAll(".version-btn")) {
       btn.classList.toggle("active", btn.dataset.v === versionFilter);
     }
+    appFooter.hidden = state.view !== "home";
 
     if (state.view === "home") return renderHome();
     if (state.view === "materials-home") return renderMaterialsHome();
