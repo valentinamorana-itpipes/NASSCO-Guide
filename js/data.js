@@ -31,7 +31,7 @@ const MATERIALS = {
               { code: "SCP", name: "Surface Damage – Corrosion", desc: "Metal no longer smooth, developing shallow pits that can flake off; can advance to Missing Wall." },
               { code: "SMW", name: "Surface Damage – Missing Wall", desc: "Corrosion has fully eaten through the pipe material." },
               { code: "DFC", name: "Deformed Flexible – Creasing", desc: "A sharp outward longitudinal fold." },
-              { code: "WFS", name: "Weld Failure – Spiral", desc: "Weld failure following the spiral seam typical of large-diameter CMP." }
+              { code: "WFC", name: "Weld Failure – Circumferential", desc: "Weld failure following a circumferential seam." }
             ]
           }
         ],
@@ -60,7 +60,7 @@ const MATERIALS = {
             ]
           }
         ],
-        notes: "Do not use repeated continuous-defect coding at every joint in DIP — code point defects at each joint instead, and reserve continuous defects for barrel-length features. If a repeating joint-code grade is below 3 it may be coded continuous; grade 3 or higher must be coded as point defects. The 18–20in joint length is the fastest way to distinguish DIP from CAS."
+        notes: "In Sanity Coding only, do not use repeated continuous-defect coding at every joint in DIP — code point defects at each joint instead, and reserve continuous defects for barrel-length features. If a repeating joint-code grade is below 3 it may be coded continuous; grade 3 or higher must be coded as point defects. The 18–20in joint length is the fastest way to distinguish DIP from CAS."
       },
       {
         id: "hdpe",
@@ -163,7 +163,8 @@ const MATERIALS = {
           {
             title: "Structural",
             defects: [
-              { code: "DFE (V7) / KW (V6)", name: "Deformed Elliptical", desc: "Pipe compressed under load into an oval shape, losing its original circular geometry and structural integrity.", threshold: "Code once deformation reaches 10%. PVC typically withstands up to 40% deformation before collapse risk rises sharply." }
+              { code: "DFE (V7) / KW (V6)", name: "Deformed Elliptical", desc: "Pipe compressed under load into an oval shape, losing its original circular geometry and structural integrity.", threshold: "Code once deformation reaches 10%. PVC typically withstands up to 40% deformation before collapse risk rises sharply." },
+              { code: "DFBR", name: "Deformed Flexible, Bulging Round", desc: "One or more rounded projections into the pipe wall, typically from poor bedding/backfill around the pipe rather than overhead loading." }
             ]
           },
           {
@@ -767,8 +768,10 @@ const CODES = {
           { code: "DFBR", codeV6: "KD", name: "Deformed Flexible, Bulging Round", desc: "One or more rounded projections into the pipe. V6's KD had no grade. Can resemble dimpling in RPM/PVC — if it's mountain-like and sits on a liner, consider LFBU instead (see LFB vs DFBR under Lining Features)." },
           { code: "DFC", codeV6: "KW", nameV6: "Buckling Wall", descV6: "Original shape visibly compressed. V6's generic Buckling Wall (KW) code had no grade, and covered both what V7/V8 later split into Creasing (DFC) and Elliptical (DFE).", name: "Deformed Flexible, Creasing", desc: "Sharp outward folding of the pipe wall." },
           { code: "DFE", codeV6: "KW", nameV6: "Buckling Wall", descV6: "Original shape visibly compressed. V6's generic Buckling Wall (KW) code had no grade, and covered both what V7/V8 later split into Creasing (DFC) and Elliptical (DFE).", name: "Deformed Flexible, Elliptical", desc: "Original circular shape visibly compressed into an oval. Graded by CSL in V7/V8: ≤5% = Grade 2, >5–10% = Grade 3, >10–20% = Grade 4, >20–40% = Grade 5." },
-          { code: "DR", name: "Deformed Rigid", desc: "Pipe wall has moved and is broken/cracked, original shape visibly compressed. Other structural defects present at the location don't need separate coding, but O&M defects still do. Only used up to 40% CSL — beyond that (e.g. 45%) it's Collapse (X). % of CSL lost sets the severity grade: ≤5% = Grade 4, >5% = Grade 5." },
-          { code: "DV / DH", name: "Deformed Vertically / Horizontally", desc: "DV: pressure at 12 and 6 forces 9 and 3 to bow outward. DH: pressure at 9 and 3 forces 12 and 6 to bow outward." }
+          { code: "DR", noV6: true, name: "Deformed Rigid", desc: "Pipe wall has moved and is broken/cracked, original shape visibly compressed. Other structural defects present at the location don't need separate coding, but O&M defects still do. Only used up to 40% CSL — beyond that (e.g. 45%) it's Collapse (X). % of CSL lost sets the severity grade: ≤5% = Grade 4, >5% = Grade 5." },
+          { code: "DTBI", noV6: true, name: "Deformed Brick, Bulging Inverse Curvature", desc: "An inward bulge with a sharp crest in a brick sewer's wall — can look like a heart or a fin, distinct from a rounded bulge." },
+          { code: "DTBR", noV6: true, name: "Deformed Brick, Bulging Round", desc: "One or more rounded projections into a brick sewer's wall." },
+          { code: "DV / DH", noV7: true, name: "Deformed Vertically / Horizontally", desc: "DV: pressure at 12 and 6 forces 9 and 3 to bow outward. DH: pressure at 9 and 3 forces 12 and 6 to bow outward." }
         ]
       },
       {
@@ -780,7 +783,8 @@ const CODES = {
       {
         title: "Joints — defective displacements",
         defects: [
-          { code: "JAM / JAL", name: "Joint Angular Medium / Large", desc: "JAM: out of alignment more than 5°, up to 10°. JAL: out of alignment more than 10°. Both are caused by pipe movement (usually lost support), unintentionally changing flow direction — shown as left-right snaking of the pipe visible in the flow." },
+          { code: "JAL", name: "Joint Angular Large", desc: "Out of alignment more than 10°. Caused by pipe movement (usually lost support), unintentionally changing flow direction — shown as left-right snaking of the pipe visible in the flow." },
+          { code: "JAM", name: "Joint Angular Medium", desc: "Out of alignment more than 5°, up to 10°. Caused by pipe movement (usually lost support), unintentionally changing flow direction — shown as left-right snaking of the pipe visible in the flow." },
           { code: "JOL", name: "Joint Offset Large", desc: "Displaced more than 1.5x pipe wall thickness. Normalized coding adds HSV/HVV when soil/voids are also visible at the JOL; under NASSCO Pure, whether HSV/HVV applies is debatable and depends on the reviewer." },
           { code: "JOM", name: "Joint Offset Medium", desc: "Displaced more than 1 but less than 1.5x the pipe wall thickness." },
           { code: "JOMD / JOLD", noV6: true, name: "Joint Offset Medium/Large, Defective", desc: "Displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the JOM/JOL is actually disrupting water flow." },
@@ -800,8 +804,9 @@ const CODES = {
           { code: "SRI", name: "Roughness Increased", desc: "Surface slightly worn, abraded, or deteriorated. Concrete pipes only." },
           { code: "SRP", name: "Reinforcement Projecting", desc: "Serious erosion that fully exposes reinforcement/rebar, now projecting into the pipe. Reinforced concrete only." },
           { code: "SRV", name: "Reinforcement Visible", desc: "Concrete has eroded enough to expose reinforcement/rebar, with no projection into the pipe. Reinforced concrete only." },
-          { code: "SSC", name: "Spalling of Coating", desc: "The interior coating is damaged, abraded, flaked, or splintered — often a spider-web cracking pattern. Used on VCP and other coated pipe." },
+          { code: "SSC", noV6: true, name: "Spalling of Coating", desc: "The interior coating is damaged, abraded, flaked, or splintered — often a spider-web cracking pattern. Used on VCP and other coated pipe." },
           { code: "SSS", codeV6: "SSSC", name: "Spalling", desc: "Flaking deeper than a coating, mainly on VCP. A chip of wall missing right at the joint is better described as spalling. In V6, modifiers M (Mechanical)/C (Chemical)/Z (Not evident) applied — use M when the spalling edges are too clean/square, indicating machine damage (e.g. a root remover) rather than natural gas attack." },
+          { code: "SSSM", noV7: true, name: "Spalling, Mechanical", desc: "Spalling with clean, square-looking edges — indicates machine damage (e.g. a root remover) rather than natural gas/H2S attack. V6 modifier variant of Spalling." },
           { code: "SZ", name: "Other", desc: "Any surface damage not covered above. In PVC, overheated joint welds can look melted or show wrinkles/bubbles resembling a lining — code as SZ or ignore. In concrete pipe with chipping at joints, prefer SZ over SSS in most cases, since concrete rarely truly spalls." }
         ]
       },

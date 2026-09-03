@@ -43,7 +43,9 @@
   // every defect is shown as-is with its resolved code.
   function resolveDefectsForVersion(defects) {
     if (versionFilter !== "v6") {
-      return defects.map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold, isNote: d.isNote, sourceCodes: [d.code] }));
+      return defects
+        .filter((d) => !(versionFilter === "v7" && d.noV7))
+        .map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold, isNote: d.isNote, sourceCodes: [d.code] }));
     }
     const seen = new Map();
     const out = [];
