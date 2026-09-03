@@ -35,6 +35,26 @@
     return d.codeV6 ? `${d.code} / ${d.codeV6}` : d.code;
   }
 
+  // Resolves a group's defect list against the active version filter. Under
+  // "v6", several V7/V8 descriptors collapse onto the same legacy code (e.g.
+  // IDB/IDJ both become ID) — those collapse into a single card using the
+  // defect's nameV6/descV6 (falling back to name/desc). Under "v7"/"both",
+  // every defect is shown as-is with its resolved code.
+  function resolveDefectsForVersion(defects) {
+    if (versionFilter !== "v6") {
+      return defects.map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold }));
+    }
+    const seen = new Set();
+    const out = [];
+    for (const d of defects) {
+      const code = d.codeV6 || d.code;
+      if (seen.has(code)) continue;
+      seen.add(code);
+      out.push({ code, name: d.nameV6 || d.name, desc: d.descV6 || d.desc, threshold: d.codeV6 ? undefined : d.threshold });
+    }
+    return out;
+  }
+
   function esc(str) {
     const d = document.createElement("div");
     d.textContent = str == null ? "" : String(str);
@@ -232,12 +252,12 @@
       h.textContent = group.title;
       block.appendChild(h);
 
-      for (const d of group.defects) {
+      for (const d of resolveDefectsForVersion(group.defects)) {
         const card = document.createElement("div");
         card.className = "defect-card";
         card.innerHTML = `
           <div class="dc-top">
-            <span class="defect-code">${esc(displayCode(d))}</span>
+            <span class="defect-code">${esc(d.code)}</span>
             <span class="defect-name">${esc(d.name)}</span>
           </div>
           <div class="defect-desc">${esc(d.desc)}</div>
