@@ -163,7 +163,7 @@ const MATERIALS = {
           {
             title: "Structural",
             defects: [
-              { code: "DFE (V7) / KW (V6)", name: "Deformed Elliptical", desc: "Pipe compressed under load into an oval shape, losing its original circular geometry and structural integrity.", threshold: "Code once deformation reaches 10%. PVC typically withstands up to 40% deformation before collapse risk rises sharply." },
+              { code: "DFE (V7) / KW (V6)", name: "Deformed Elliptical", desc: "Pipe compressed under load into an oval shape, losing its original circular geometry and structural integrity.", threshold: "In Sanity Coding only, code once deformation reaches 10%. PVC typically withstands up to 40% deformation before collapse risk rises sharply." },
               { code: "DFBR", name: "Deformed Flexible, Bulging Round", desc: "One or more rounded projections into the pipe wall, typically from poor bedding/backfill around the pipe rather than overhead loading." }
             ]
           },
@@ -444,6 +444,7 @@ const CODES = {
           { code: "TFA", name: "Tap Factory Active", desc: "No defects seen, sits flush with the pipe wall, and flow is observed during the inspection. Current flow or staining below the tap is also evidence of activity. VC, VR, or VZ do NOT make the tap defective — code TFA/TBA and note the VC/VR/VZ in Remarks." },
           { code: "TFB", name: "Tap Factory Abandoned", desc: "No longer in use — may be filled with debris or collapsed. Spider-webs across the opening are a common sign it's inactive." },
           { code: "TFC", name: "Tap Factory Capped", desc: "Capped with a fitting or stopper. A well-installed cap shows no defects, fits the tap's size, and looks machine-made. Hand-made caps (often bricks sealed together with concrete/adhesive) are less durable and more prone to damage — still code TFC if no defects are visible. If any defect shows at a capped tap, code TFD/TBD instead, with remark \"Defective cap\" plus the defects seen." },
+          { code: "TFD", name: "Tap Factory Defective", desc: "Any defect at the tap or fitting itself — a crack, gap, or damage to the factory fitting — makes it defective. Note the specific defect(s) in Remarks." },
           { code: "TFI", name: "Tap Factory Intruding", desc: "Intrudes into the mainline. Rare except in brick pipe. May carry other defects or observed flow — note in Remarks." }
         ]
       },
@@ -462,6 +463,7 @@ const CODES = {
         title: "Rehabilitated (TR)",
         defects: [
           { code: "TR", name: "Tap Rehabilitated", desc: "A repaired/rehabilitated tap, no defects seen, aligned evenly with the pipe wall." },
+          { code: "TRD", name: "Tap Rehabilitated Defective", desc: "The rehabilitated tap shows a defect — damage to the repair material, a gap, or other failure. Note the specific defect(s) in Remarks." },
           { code: "TRI", name: "Tap Rehabilitated Intruding", desc: "A repaired/rehabilitated tap intruding into the main by more than 1\"." }
         ]
       },
@@ -556,13 +558,16 @@ const CODES = {
       {
         title: "Access Point Types",
         defects: [
-          { code: "AMH", name: "Manhole", desc: "A man-entry structure for maintenance and inspection access. Inspections MUST start and end at access points unless an MSA is coded. Unmapped access points are common — code them and flag them to team managers regardless. If there's visual confirmation of driving past an access point that the operator didn't call or code, code it yourself and stop the inspection there." },
-          { code: "AEP", name: "End of Pipe", desc: "The pipe ends underground with no manhole, cleanout, or other structure. Weirs are a common structure found near an AEP close to a WWTP — a flat, vertical surface with evenly spaced holes." },
           { code: "ACB", name: "Catch Basin", desc: "An inlet/structure allowing stormwater inflow into the storm sewer. Only switch from AMH to ACB at the start/end of an inspection when the lid is slotted and square/rectangular — a catch-basin-shaped manhole is still coded AMH." },
+          { code: "ACOH", name: "Cleanout — House", desc: "A cleanout installed on the private side of the service lateral, at or near the building. Looks like a small vertical pipe stub with a screw cap, typically found in yards or near foundations." },
           { code: "ACOM", name: "Cleanout — Mainline", desc: "A cleanout installed directly on the mainline (a.k.a. lamp hole), or on a lateral but within the public right-of-way. Looks like a vertical tap the same size as the mainline, usually at the very end of the pipe. ACOM is itself an access point — no MSA is required, and no tap code is needed alongside it. Remarks must include the associated upstream/downstream manhole number." },
+          { code: "ACOP", name: "Cleanout — Propertyline", desc: "A cleanout installed on the lateral at or near the property line, between the house cleanout and the mainline connection." },
           { code: "ADP", name: "Discharge Point", desc: "Where the pipe (normally storm) empties into a stream or other body of water." },
+          { code: "AEP", name: "End of Pipe", desc: "The pipe ends underground with no manhole, cleanout, or other structure. Weirs are a common structure found near an AEP close to a WWTP — a flat, vertical surface with evenly spaced holes." },
           { code: "AJB", name: "Junction Box", desc: "A chamber where two or more pipes join, usually located outside a treatment facility where large-diameter pipes converge." },
           { code: "AM", name: "Meter", desc: "A structure built to house flow measurement equipment. A regular manhole with a flow meter installed is still coded AMH — note the meter in the header's Comments field instead." },
+          { code: "AMH", name: "Manhole", desc: "A man-entry structure for maintenance and inspection access. Inspections MUST start and end at access points unless an MSA is coded. Unmapped access points are common — code them and flag them to team managers regardless. If there's visual confirmation of driving past an access point that the operator didn't call or code, code it yourself and stop the inspection there." },
+          { code: "AOC", name: "Special Chamber", desc: "A structure that doesn't fit any other access-point type — describe it in Remarks (e.g. a vault, diversion structure, or flow-control chamber)." },
           { code: "ATC", name: "Tee Connection", desc: "A junction where two or more pipes meet without a typical access structure — often plumbing tees/wyes, so it can look like a 90° or 45° bend from inside. Made of a run (the fitting's main body) and a branch (the intersecting segment). The inspection ends at another pipe with flow; the required clock position marks that pipe's flow direction." },
           { code: "AWA", name: "Wastewater Access", desc: "Intermediate access between manholes, at a grade/direction change, or at an end-of-line segment — not large enough for man-entry, but sized for CCTV and cleaning equipment. Also covers temporary access installed for a construction project." },
           { code: "AWW", name: "Wet Well", desc: "Access through a pump station wet well, tank, pit, or reservoir — commonly called a \"lift station,\" since pumps lift water from the reservoir into force/trunk mains. Can look manhole-like; don't call it AWW without visual confirmation of pumping equipment or weirs." }
@@ -651,9 +656,12 @@ const CODES = {
         title: "Grout Test and Seal (G)",
         defects: [
           { code: "GRT", name: "At a Location", desc: "Coded at the time of the grouting procedure itself, at a specific location." },
-          { code: "GTF", name: "Test Fail", desc: "A grout test or seal that failed at the joint/lateral." },
-          { code: "GTP", name: "Test Pass", desc: "A grout test or seal that passed at the joint/lateral." },
-          { code: "GTU", name: "Unable to Test", desc: "The test couldn't be completed — note why in Remarks." }
+          { code: "GTFJ", name: "Test Fail, Joint", desc: "A grout test or seal that failed at the joint." },
+          { code: "GTFL", name: "Test Fail, Lateral", desc: "A grout test or seal that failed at the lateral." },
+          { code: "GTPJ", name: "Test Pass, Joint", desc: "A grout test or seal that passed at the joint." },
+          { code: "GTPL", name: "Test Pass, Lateral", desc: "A grout test or seal that passed at the lateral." },
+          { code: "GTUJ", name: "Unable to Test, Joint", desc: "The test at the joint couldn't be completed — note why in Remarks." },
+          { code: "GTUL", name: "Unable to Test, Lateral", desc: "The test at the lateral couldn't be completed — note why in Remarks." }
         ]
       },
       {
@@ -699,13 +707,22 @@ const CODES = {
       {
         title: "Roots (R)",
         defects: [
+          { code: "RBB", name: "Ball, Barrel", desc: "Roots gathered into a mass greater than 50% CSL, growing through a defect in the barrel/wall rather than at a joint." },
+          { code: "RBC", name: "Ball, Connection", desc: "Roots gathered into a mass greater than 50% CSL, growing in around a tap connection. Only coded on break-in/saddle/intruding taps, since a factory tap (TF) has no connection for roots to enter through." },
+          { code: "RBJ", name: "Ball, Joint", desc: "Roots gathered into a mass greater than 50% CSL, directly at the joint. If RBJ and DAGS are fused into the same mass, split the total CSL between them rather than double-counting (e.g. a 90% mass = 40% RBJ + 50% DAGS, not 90 of each). Continuous defect coding doesn't apply to a defect this severe — only code it once the root ball itself is ≥50%." },
+          { code: "RBL", name: "Ball, Lateral", desc: "Roots gathered into a mass greater than 50% CSL, entering the mainline through a service lateral." },
+          { code: "RFB", name: "Fine, Barrel", desc: "Hair-like roots, under 5% CSL, growing through a defect in the barrel/wall rather than at a joint." },
           { code: "RFC", name: "Fine, Connection", desc: "Fine roots around a tap connection. Only coded on break-in/saddle/intruding taps, since a factory tap (TF) has no connection for roots to enter through. Add a separate mainline entry if visible there; otherwise it only goes in the tap's remarks." },
           { code: "RFJ", name: "Fine, Joint", desc: "Hair-like roots, under 5% CSL, occurring right at the joint. Use separate clock positions if the roots vary by more than two clock positions; use a single code with two clock positions if they're visible on both sides." },
+          { code: "RFL", name: "Fine, Lateral", desc: "Hair-like roots, under 5% CSL, entering the mainline through a service lateral." },
           { code: "RMB", name: "Medium, Barrel", desc: "A root mass in the barrel/wall, typically growing through a defect (fracture, hole, etc). Use two codes and matching clock positions for both sides." },
+          { code: "RMC", name: "Medium, Connection", desc: "A root mass between 5% and 50% CSL, growing in around a tap connection. Only coded on break-in/saddle/intruding taps." },
           { code: "RMJ", name: "Medium, Joint", desc: "A root mass between 5% and 50% CSL, directly at the joint. Use two codes and matching clock positions for both sides." },
           { code: "RML", name: "Medium, Lateral", desc: "Roots entering the mainline through a service lateral. In V7+, use the L modifier for roots inside a lateral even if the lateral is capped." },
-          { code: "RBJ", name: "Ball, Joint", desc: "Roots gathered into a mass greater than 50% CSL, directly at the joint. If RBJ and DAGS are fused into the same mass, split the total CSL between them rather than double-counting (e.g. a 90% mass = 40% RBJ + 50% DAGS, not 90 of each). Continuous defect coding doesn't apply to a defect this severe — only code it once the root ball itself is ≥50%." },
-          { code: "RTJ", name: "Tap, Joint", desc: "A single thick, branch-like root, over ½\" (10mm) thick, at the joint — can expand or create new defects on its own. Check the size/thickness before coding, and check with the team before coding what might actually be a tree branch (obstacle) instead. Doesn't need its own code when already covered by a Roots Medium entry." }
+          { code: "RTB", name: "Tap, Barrel", desc: "A single thick, branch-like root, over ½\" (10mm) thick, growing through the barrel/wall rather than at a joint. Check with the team before coding what might actually be a tree branch (obstacle) instead." },
+          { code: "RTC", name: "Tap, Connection", desc: "A single thick, branch-like root, over ½\" (10mm) thick, growing in around a tap connection." },
+          { code: "RTJ", name: "Tap, Joint", desc: "A single thick, branch-like root, over ½\" (10mm) thick, at the joint — can expand or create new defects on its own. Check the size/thickness before coding, and check with the team before coding what might actually be a tree branch (obstacle) instead. Doesn't need its own code when already covered by a Roots Medium entry." },
+          { code: "RTL", name: "Tap, Lateral", desc: "A single thick, branch-like root, over ½\" (10mm) thick, entering the mainline through a service lateral." }
         ]
       },
       {
@@ -768,16 +785,18 @@ const CODES = {
           { code: "DFBR", codeV6: "KD / LFBU", nameV6: "Dimpling (KD) / Bulges (LFBU)", descV6: "Two distinct V6 causes, both coded DFBR from V7 onward. KD — Dimpling: a wavy pattern or inward bulging in the inner pipe wall, from local instability of the wall itself. LFBU — Bulges: the host pipe has an intruding defect (a break, a tap) that, once the liner is placed over it, pushes the liner outward into a bulge at that spot.", name: "Deformed Flexible, Bulging Round", desc: "One or more rounded projections into the pipe. Can resemble dimpling in RPM/PVC." },
           { code: "DFC", codeV6: "KW", nameV6: "Buckling Wall", descV6: "Original shape visibly compressed. V6's generic Buckling Wall (KW) code had no grade, and covered both what V7/V8 later split into Creasing (DFC) and Elliptical (DFE).", name: "Deformed Flexible, Creasing", desc: "Sharp outward folding of the pipe wall." },
           { code: "DFE", codeV6: "KW", nameV6: "Buckling Wall", descV6: "Original shape visibly compressed. V6's generic Buckling Wall (KW) code had no grade, and covered both what V7/V8 later split into Creasing (DFC) and Elliptical (DFE).", name: "Deformed Flexible, Elliptical", desc: "Original circular shape visibly compressed into an oval. Graded by CSL in V7/V8: ≤5% = Grade 2, >5–10% = Grade 3, >10–20% = Grade 4, >20–40% = Grade 5." },
+          { code: "DH", noV7: true, name: "Deformed Horizontally", desc: "Pressure at 9 and 3 o'clock forces 12 and 6 to bow outward. V6 code." },
           { code: "DR", noV6: true, name: "Deformed Rigid", desc: "Pipe wall has moved and is broken/cracked, original shape visibly compressed. Other structural defects present at the location don't need separate coding, but O&M defects still do. Only used up to 40% CSL — beyond that (e.g. 45%) it's Collapse (X). % of CSL lost sets the severity grade: ≤5% = Grade 4, >5% = Grade 5." },
           { code: "DTBI", noV6: true, name: "Deformed Brick, Bulging Inverse Curvature", desc: "An inward bulge with a sharp crest in a brick sewer's wall — can look like a heart or a fin, distinct from a rounded bulge." },
           { code: "DTBR", noV6: true, name: "Deformed Brick, Bulging Round", desc: "One or more rounded projections into a brick sewer's wall." },
-          { code: "DV / DH", noV7: true, name: "Deformed Vertically / Horizontally", desc: "DV: pressure at 12 and 6 forces 9 and 3 to bow outward. DH: pressure at 9 and 3 forces 12 and 6 to bow outward." }
+          { code: "DV", noV7: true, name: "Deformed Vertically", desc: "Pressure at 12 and 6 o'clock forces 9 and 3 to bow outward. V6 code." }
         ]
       },
       {
         title: "Collapse (X)",
         defects: [
-          { code: "X", name: "Collapse", desc: "Complete loss of structural integrity — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (>40%). Does NOT use Continuous Defect." }
+          { code: "XB", name: "Collapse, Brick", desc: "Complete loss of structural integrity in a brick sewer — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (>40%). Does NOT use Continuous Defect." },
+          { code: "XP", name: "Collapse, Pipe", desc: "Complete loss of structural integrity in a pipe sewer — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (>40%). Does NOT use Continuous Defect." }
         ]
       },
       {
@@ -795,19 +814,48 @@ const CODES = {
       {
         title: "Surface Damage (S)",
         defects: [
-          { code: "SAM", name: "Aggregate Missing", desc: "Aggregate has fallen out, leaving small pits in the wall. Concrete pipes only." },
-          { code: "SAP", name: "Aggregate Projecting", desc: "Aggregate projecting but not yet missing. Concrete pipes only." },
-          { code: "SAV", name: "Aggregate Visible", desc: "Aggregate visible but not yet projecting. Concrete pipes only." },
-          { code: "SCP", name: "Corrosion", desc: "Metal pipe only — the pipe is still intact but appears rusted. Requires all three: coating has deteriorated, the pipe shows a rusty color and rough texture, AND the corrosion has changed the surface's texture/volume/depth. Color or texture alone isn't enough. Builds up and flakes off over time; DAE can occur alongside SCP, and SSC/SSS often precede it when the damage is less severe." },
-          { code: "SMW", name: "Missing Wall", desc: "Wall has completely eroded away, with smooth edges — distinct from a Hole, where wall thickness stays consistent at the edges. SMW forms gradually from corrosion/H2S attack, leaving thinner, more uneven edges. Applies to all pipe types affected by H2S." },
-          { code: "SRC", name: "Reinforcement Corroded", desc: "Reinforcement/rebar is corroding or deteriorating, and may be missing in places. Reinforced concrete only." },
-          { code: "SRI", name: "Roughness Increased", desc: "Surface slightly worn, abraded, or deteriorated. Concrete pipes only." },
-          { code: "SRP", name: "Reinforcement Projecting", desc: "Serious erosion that fully exposes reinforcement/rebar, now projecting into the pipe. Reinforced concrete only." },
-          { code: "SRV", name: "Reinforcement Visible", desc: "Concrete has eroded enough to expose reinforcement/rebar, with no projection into the pipe. Reinforced concrete only." },
+          { code: "SAM", noV6: true, name: "Aggregate Missing", desc: "Aggregate has fallen out, leaving small pits in the wall. Concrete pipes only." },
+          { code: "SAMC", noV7: true, name: "Aggregate Missing, Chemical", desc: "Aggregate has fallen out from H2S/chemical attack, leaving small pits in the wall. Concrete pipes only. V6 modifier variant of Aggregate Missing." },
+          { code: "SAMM", noV7: true, name: "Aggregate Missing, Mechanical", desc: "Aggregate has fallen out from physical/mechanical damage rather than chemical attack, leaving small pits in the wall. Concrete pipes only. V6 modifier variant of Aggregate Missing." },
+          { code: "SAMZ", noV7: true, name: "Aggregate Missing, Unknown", desc: "Aggregate has fallen out, leaving small pits in the wall, with no clear evidence of chemical or mechanical cause. Concrete pipes only. V6 modifier variant of Aggregate Missing." },
+          { code: "SAP", noV6: true, name: "Aggregate Projecting", desc: "Aggregate projecting but not yet missing. Concrete pipes only." },
+          { code: "SAPC", noV7: true, name: "Aggregate Projecting, Chemical", desc: "Aggregate projecting from H2S/chemical attack, but not yet missing. Concrete pipes only. V6 modifier variant of Aggregate Projecting." },
+          { code: "SAPM", noV7: true, name: "Aggregate Projecting, Mechanical", desc: "Aggregate projecting from physical/mechanical damage, but not yet missing. Concrete pipes only. V6 modifier variant of Aggregate Projecting." },
+          { code: "SAPZ", noV7: true, name: "Aggregate Projecting, Unknown", desc: "Aggregate projecting but not yet missing, with no clear evidence of chemical or mechanical cause. Concrete pipes only. V6 modifier variant of Aggregate Projecting." },
+          { code: "SAV", noV6: true, name: "Aggregate Visible", desc: "Aggregate visible but not yet projecting. Concrete pipes only." },
+          { code: "SAVC", noV7: true, name: "Aggregate Visible, Chemical", desc: "Aggregate visible from H2S/chemical attack, but not yet projecting. Concrete pipes only. V6 modifier variant of Aggregate Visible." },
+          { code: "SAVM", noV7: true, name: "Aggregate Visible, Mechanical", desc: "Aggregate visible from physical/mechanical damage, but not yet projecting. Concrete pipes only. V6 modifier variant of Aggregate Visible." },
+          { code: "SAVZ", noV7: true, name: "Aggregate Visible, Unknown", desc: "Aggregate visible but not yet projecting, with no clear evidence of chemical or mechanical cause. Concrete pipes only. V6 modifier variant of Aggregate Visible." },
+          { code: "SCP", name: "Corrosion", desc: "Metal pipe only — the pipe is still intact but appears rusted. Requires all three: coating has deteriorated, the pipe shows a rusty color and rough texture, AND the corrosion has changed the surface's texture/volume/depth. Color or texture alone isn't enough. Builds up and flakes off over time; DAE can occur alongside SCP, and SSC/SSS often precede it when the damage is less severe. No M/C/Z modifiers are used on SCP in any version." },
+          { code: "SMW", noV6: true, name: "Missing Wall", desc: "Wall has completely eroded away, with smooth edges — distinct from a Hole, where wall thickness stays consistent at the edges. SMW forms gradually from corrosion/H2S attack, leaving thinner, more uneven edges. Applies to all pipe types affected by H2S." },
+          { code: "SMWC", noV7: true, name: "Missing Wall, Chemical", desc: "Wall has completely eroded away from H2S/chemical attack, with smooth, thinner edges — distinct from a Hole, where wall thickness stays consistent. V6 modifier variant of Missing Wall." },
+          { code: "SMWM", noV7: true, name: "Missing Wall, Mechanical", desc: "Wall has completely eroded away from physical/mechanical damage rather than chemical attack. V6 modifier variant of Missing Wall." },
+          { code: "SMWZ", noV7: true, name: "Missing Wall, Unknown", desc: "Wall has completely eroded away, with no clear evidence of chemical or mechanical cause. V6 modifier variant of Missing Wall." },
+          { code: "SRC", noV6: true, name: "Reinforcement Corroded", desc: "Reinforcement/rebar is corroding or deteriorating, and may be missing in places. Reinforced concrete only." },
+          { code: "SRCC", noV7: true, name: "Reinforcement Corroded, Chemical", desc: "Rebar is corroding from H2S/chemical attack, and may be missing in places. Reinforced concrete only. V6 modifier variant of Reinforcement Corroded." },
+          { code: "SRCM", noV7: true, name: "Reinforcement Corroded, Mechanical", desc: "Rebar is deteriorating from physical/mechanical damage rather than chemical attack. Reinforced concrete only. V6 modifier variant of Reinforcement Corroded." },
+          { code: "SRCZ", noV7: true, name: "Reinforcement Corroded, Unknown", desc: "Rebar is corroding or deteriorating, with no clear evidence of chemical or mechanical cause. Reinforced concrete only. V6 modifier variant of Reinforcement Corroded." },
+          { code: "SRI", noV6: true, name: "Roughness Increased", desc: "Surface slightly worn, abraded, or deteriorated. Concrete pipes only." },
+          { code: "SRIC", noV7: true, name: "Roughness Increased, Chemical", desc: "Surface slightly worn or deteriorated from H2S/chemical attack. Concrete pipes only. V6 modifier variant of Roughness Increased." },
+          { code: "SRIM", noV7: true, name: "Roughness Increased, Mechanical", desc: "Surface slightly worn or abraded from physical/mechanical damage rather than chemical attack. Concrete pipes only. V6 modifier variant of Roughness Increased." },
+          { code: "SRIZ", noV7: true, name: "Roughness Increased, Unknown", desc: "Surface slightly worn, abraded, or deteriorated, with no clear evidence of chemical or mechanical cause. Concrete pipes only. V6 modifier variant of Roughness Increased." },
+          { code: "SRP", noV6: true, name: "Reinforcement Projecting", desc: "Serious erosion that fully exposes reinforcement/rebar, now projecting into the pipe. Reinforced concrete only." },
+          { code: "SRPC", noV7: true, name: "Reinforcement Projecting, Chemical", desc: "Serious H2S/chemical erosion that fully exposes reinforcement/rebar, now projecting into the pipe. Reinforced concrete only. V6 modifier variant of Reinforcement Projecting." },
+          { code: "SRPM", noV7: true, name: "Reinforcement Projecting, Mechanical", desc: "Physical/mechanical damage that fully exposes reinforcement/rebar, now projecting into the pipe. Reinforced concrete only. V6 modifier variant of Reinforcement Projecting." },
+          { code: "SRPZ", noV7: true, name: "Reinforcement Projecting, Unknown", desc: "Serious erosion that fully exposes reinforcement/rebar, now projecting into the pipe, with no clear evidence of chemical or mechanical cause. Reinforced concrete only. V6 modifier variant of Reinforcement Projecting." },
+          { code: "SRV", noV6: true, name: "Reinforcement Visible", desc: "Concrete has eroded enough to expose reinforcement/rebar, with no projection into the pipe. Reinforced concrete only." },
+          { code: "SRVC", noV7: true, name: "Reinforcement Visible, Chemical", desc: "Concrete has eroded from H2S/chemical attack enough to expose reinforcement/rebar, with no projection into the pipe. Reinforced concrete only. V6 modifier variant of Reinforcement Visible." },
+          { code: "SRVM", noV7: true, name: "Reinforcement Visible, Mechanical", desc: "Physical/mechanical damage has exposed reinforcement/rebar, with no projection into the pipe. Reinforced concrete only. V6 modifier variant of Reinforcement Visible." },
+          { code: "SRVZ", noV7: true, name: "Reinforcement Visible, Unknown", desc: "Concrete has eroded enough to expose reinforcement/rebar, with no projection into the pipe and no clear evidence of chemical or mechanical cause. Reinforced concrete only. V6 modifier variant of Reinforcement Visible." },
           { code: "SSC", noV6: true, name: "Spalling of Coating", desc: "The interior coating is damaged, abraded, flaked, or splintered — often a spider-web cracking pattern. Used on VCP and other coated pipe." },
-          { code: "SSS", codeV6: "SSSC", name: "Spalling", desc: "Flaking deeper than a coating, mainly on VCP. A chip of wall missing right at the joint is better described as spalling. In V6, modifiers M (Mechanical)/C (Chemical)/Z (Not evident) applied — use M when the spalling edges are too clean/square, indicating machine damage (e.g. a root remover) rather than natural gas attack." },
+          { code: "SSS", noV6: true, name: "Spalling", desc: "Flaking deeper than a coating, mainly on VCP. A chip of wall missing right at the joint is better described as spalling. In V6, modifiers M (Mechanical)/C (Chemical)/Z (Not evident) applied — use M when the spalling edges are too clean/square, indicating machine damage (e.g. a root remover) rather than natural gas attack." },
+          { code: "SSSC", noV7: true, name: "Spalling, Chemical", desc: "Flaking deeper than a coating, from gas/chemical attack (e.g. H2S) — mainly on VCP. V6 modifier variant of Spalling." },
           { code: "SSSM", noV7: true, name: "Spalling, Mechanical", desc: "Spalling with clean, square-looking edges — indicates machine damage (e.g. a root remover) rather than natural gas/H2S attack. V6 modifier variant of Spalling." },
-          { code: "SZ", name: "Other", desc: "Any surface damage not covered above. In PVC, overheated joint welds can look melted or show wrinkles/bubbles resembling a lining — code as SZ or ignore. In concrete pipe with chipping at joints, prefer SZ over SSS in most cases, since concrete rarely truly spalls." }
+          { code: "SSSZ", noV7: true, name: "Spalling, Unknown", desc: "Flaking deeper than a coating, mainly on VCP, with no clear evidence of chemical or mechanical cause. V6 modifier variant of Spalling." },
+          { code: "SZ", noV6: true, name: "Other", desc: "Any surface damage not covered above. In PVC, overheated joint welds can look melted or show wrinkles/bubbles resembling a lining — code as SZ or ignore. In concrete pipe with chipping at joints, prefer SZ over SSS in most cases, since concrete rarely truly spalls." },
+          { code: "SZC", noV7: true, name: "Other, Chemical", desc: "Surface damage not covered above, from chemical/H2S attack. V6 modifier variant of Other." },
+          { code: "SZM", noV7: true, name: "Other, Mechanical", desc: "Surface damage not covered above, from physical/mechanical damage. V6 modifier variant of Other." },
+          { code: "SZZ", noV7: true, name: "Other, Unknown", desc: "Surface damage not covered above, with no clear evidence of chemical or mechanical cause. V6 modifier variant of Other." }
         ]
       },
       {
@@ -833,18 +881,24 @@ const CODES = {
       {
         title: "Weld Failure (WF)",
         defects: [
-          { code: "WFC / WFL / WFM / WFS / WFZ", name: "Weld Failure", desc: "Applies to large-diameter, plastic, spiral-wound, butt-fused, metal, or plastic-lined RCP with non-uniform or failed welds. Descriptors: C (Circumferential), L (Longitudinal), M (Multiple), S (Spiral — spiral-wound pipe only), Z (Other). So rare on gravity sewer inspections that there aren't many field examples — more relevant on pressure pipe. WFC specifically can't be coded as continuous, though L/M/S can be Truly or Repeated Continuous." }
+          { code: "WFC", name: "Weld Failure, Circumferential", desc: "A failed or non-uniform weld running circumferentially — applies to large-diameter, plastic, spiral-wound, butt-fused, metal, or plastic-lined RCP. So rare on gravity sewer inspections that there aren't many field examples — more relevant on pressure pipe. Can't be coded as continuous." },
+          { code: "WFL", name: "Weld Failure, Longitudinal", desc: "A failed or non-uniform weld running longitudinally. So rare on gravity sewer inspections that there aren't many field examples — more relevant on pressure pipe. Can be Truly or Repeated Continuous." },
+          { code: "WFM", name: "Weld Failure, Multiple", desc: "Multiple failed or non-uniform welds intersecting or occurring together. So rare on gravity sewer inspections that there aren't many field examples — more relevant on pressure pipe. Can be Truly or Repeated Continuous." },
+          { code: "WFS", name: "Weld Failure, Spiral", desc: "A failed or non-uniform weld in spiral-wound pipe specifically. So rare on gravity sewer inspections that there aren't many field examples — more relevant on pressure pipe. Can be Truly or Repeated Continuous." },
+          { code: "WFZ", name: "Weld Failure, Other", desc: "A weld failure not classified by the other descriptors — remarks required. So rare on gravity sewer inspections that there aren't many field examples — more relevant on pressure pipe. Can be Truly or Repeated Continuous." }
         ]
       },
       {
         title: "Point Repair (RP)",
         defects: [
           { code: "RPL", name: "Liner", desc: "A short trenchless repair with a different texture than the host pipe — you can often see the spot liner's edge or leftover resin on the host pipe wall." },
+          { code: "RPLD", noV7: true, name: "Liner Defective", desc: "The localized liner repair (RPL) wasn't effective, was damaged during installation, or is otherwise failing — sections hanging or loose at the edges are the most common trigger. Enter the resulting defect codes as new observations. V6 code." },
           { code: "RPP", name: "Patch", desc: "A patch installed over a defect from OUTSIDE the pipe. RPP can resemble HSV, but soil isn't uniformly flat — if the surface is unusually even and flat, it's more likely an RPP. Remarks should note the patch material." },
           { code: "RPPD", noV7: true, name: "Patch Defective", desc: "The patch wasn't effective, was damaged during installation, or is otherwise failing. Enter the resulting defect codes as new observations — any defect at the patch makes it defective. V6 code." },
           { code: "RPR", name: "Replacement", desc: "A section of pipe has been replaced, possibly in a different material. A color/texture change at a tap fitting (e.g. PVC green-to-white, or DIP's cast-iron tap fittings) is NOT an RPR or MMC by itself. An RPR of the same material as the host pipe is still an RPR — it's an obviously new, short section, not necessarily a material change." },
           { code: "RPRD", name: "Replacement Defective", desc: "The replacement wasn't effective, was damaged during installation, wasn't long enough to correct the original defects, or damaged the host pipe. Enter the resulting defect codes as new observations (e.g. an RPRD due to a JOL gets followed by a JOL code) — any defect at the RPR makes it defective." },
-          { code: "RPZ", noV7: true, name: "Other", desc: "A point repair not classified as Liner, Patch, or Replacement — remarks required. In V6/V7 this also covered what V8 split out as its own RPM (Mechanical Sleeve) code; note the method/material in Remarks (e.g. \"mechanical sleeve\")." }
+          { code: "RPZ", noV7: true, name: "Other", desc: "A point repair not classified as Liner, Patch, or Replacement — remarks required. In V6/V7 this also covered what V8 split out as its own RPM (Mechanical Sleeve) code; note the method/material in Remarks (e.g. \"mechanical sleeve\")." },
+          { code: "RPZD", noV7: true, name: "Other Defective", desc: "The point repair method itself doesn't fit Liner, Patch, or Replacement — remarks required — and it's failing or damaged. Enter the resulting defect codes as new observations. V6 code." }
         ]
       },
       {
