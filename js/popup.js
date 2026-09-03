@@ -43,7 +43,7 @@
   // every defect is shown as-is with its resolved code.
   function resolveDefectsForVersion(defects) {
     if (versionFilter !== "v6") {
-      return defects.map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold }));
+      return defects.map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold, isNote: d.isNote }));
     }
     const seen = new Set();
     const out = [];
@@ -51,7 +51,7 @@
       const code = d.codeV6 || d.code;
       if (seen.has(code)) continue;
       seen.add(code);
-      out.push({ code, name: d.nameV6 || d.name, desc: d.descV6 || d.desc, threshold: d.codeV6 ? undefined : d.threshold });
+      out.push({ code, name: d.nameV6 || d.name, desc: d.descV6 || d.desc, threshold: d.codeV6 ? undefined : d.threshold, isNote: d.isNote });
     }
     return out;
   }
@@ -107,7 +107,7 @@
     backBtn.hidden = stack.length <= 1;
     main.innerHTML = "";
 
-    versionBar.hidden = !(state.view === "codes-home" || state.view === "codes-section");
+    versionBar.hidden = !(state.view === "codes-home" || state.view === "codes-group" || state.view === "codes-section");
     for (const btn of versionBarButtons.querySelectorAll(".version-btn")) {
       btn.classList.toggle("active", btn.dataset.v === versionFilter);
     }
@@ -118,6 +118,7 @@
     if (state.view === "category") return renderCategory(state.catKey);
     if (state.view === "material") return renderMaterial(state.catKey, state.materialId);
     if (state.view === "codes-home") return renderCodesHome();
+    if (state.view === "codes-group") return renderCodesGroup(state.source);
     if (state.view === "codes-section") return renderCodesSection(state.sectionId);
     if (state.view === "pure") return renderPure();
     if (state.view === "operator-review") return renderOperatorReview();
@@ -182,6 +183,20 @@
     mount(wrap);
   }
 
+  // Codes sections are grouped by their source pptx. Continuous Defects
+  // Clinic always sorts first as its own standalone container; the rest
+  // follow alphabetically.
+  function codesSourceOrder() {
+    const sectionIds = Object.keys(CODES);
+    const sources = [...new Set(sectionIds.map((id) => CODES[id].source || "Other"))];
+    const pinned = "Continuous Defects Clinic";
+    return sources.sort((a, b) => {
+      if (a === pinned) return -1;
+      if (b === pinned) return 1;
+      return a.localeCompare(b);
+    });
+  }
+
   function renderCodesHome() {
     headerTitle.textContent = "Codes";
     headerSubtitle.textContent = "Coding rules & strategy guides";
@@ -189,37 +204,65 @@
     const wrap = document.createElement("div");
     wrap.className = "codes-cat";
 
-    const sectionIds = Object.keys(CODES).sort((a, b) => CODES[a].label.localeCompare(CODES[b].label));
+    for (const source of codesSourceOrder()) {
+      const sectionIds = Object.keys(CODES)
+        .filter((id) => (CODES[id].source || "Other") === source)
+        .sort((a, b) => CODES[a].label.localeCompare(CODES[b].label));
+      const soleSectionId = sectionIds.length === 1 ? sectionIds[0] : null;
+      const summary = soleSectionId
+        ? (CODES[soleSectionId].blurb || CODES[soleSectionId].label)
+        : sectionIds.map((id) => CODES[id].label).join(", ");
 
-    const sourceOrder = [...new Set(sectionIds.map((id) => CODES[id].source || "Other"))].sort((a, b) => a.localeCompare(b));
-
-    for (const source of sourceOrder) {
-      const block = document.createElement("div");
-      block.className = "group-block";
-      const h = document.createElement("h2");
-      h.className = "group-title";
-      h.textContent = source;
-      block.appendChild(h);
-
-      for (const sectionId of sectionIds.filter((id) => (CODES[id].source || "Other") === source)) {
-        const section = CODES[sectionId];
-        const isStrategy = sectionId === "continuousDefects";
-        const btn = document.createElement("button");
-        btn.className = "material-card" + (isStrategy ? " material-card-compact" : "");
-        btn.innerHTML = `
-          ${matIcon("solid", "on-codes" + (isStrategy ? " sm" : ""))}
-          <div class="mc-body">
-            <div class="mc-top">
-              <span class="mc-name">${esc(section.label)}</span>
-            </div>
-            ${isStrategy ? "" : `<div class="mc-summary">${esc(section.blurb || "")}</div>`}
+      const btn = document.createElement("button");
+      btn.className = "material-card";
+      btn.innerHTML = `
+        ${matIcon("solid", "on-codes")}
+        <div class="mc-body">
+          <div class="mc-top">
+            <span class="mc-name">${esc(source)}</span>
           </div>
-        `;
-        btn.addEventListener("click", () => push({ view: "codes-section", sectionId }));
-        block.appendChild(btn);
-      }
+          <div class="mc-summary">${esc(summary)}</div>
+        </div>
+      `;
+      // A source with only one section links straight to it — no point
+      // in a container screen with a single option inside.
+      btn.addEventListener("click", () => {
+        if (soleSectionId) push({ view: "codes-section", sectionId: soleSectionId });
+        else push({ view: "codes-group", source });
+      });
+      wrap.appendChild(btn);
+    }
 
-      wrap.appendChild(block);
+    mount(wrap);
+  }
+
+  function renderCodesGroup(source) {
+    headerTitle.textContent = source;
+    headerSubtitle.textContent = "Pick a section";
+
+    const wrap = document.createElement("div");
+    wrap.className = "codes-cat";
+
+    const sectionIds = Object.keys(CODES)
+      .filter((id) => (CODES[id].source || "Other") === source)
+      .sort((a, b) => CODES[a].label.localeCompare(CODES[b].label));
+
+    for (const sectionId of sectionIds) {
+      const section = CODES[sectionId];
+      const isStrategy = sectionId === "continuousDefects";
+      const btn = document.createElement("button");
+      btn.className = "material-card" + (isStrategy ? " material-card-compact" : "");
+      btn.innerHTML = `
+        ${matIcon("solid", "on-codes" + (isStrategy ? " sm" : ""))}
+        <div class="mc-body">
+          <div class="mc-top">
+            <span class="mc-name">${esc(section.label)}</span>
+          </div>
+          ${isStrategy ? "" : `<div class="mc-summary">${esc(section.blurb || "")}</div>`}
+        </div>
+      `;
+      btn.addEventListener("click", () => push({ view: "codes-section", sectionId }));
+      wrap.appendChild(btn);
     }
 
     mount(wrap);
@@ -245,10 +288,17 @@
     if (section.generalRules && section.generalRules.length) {
       const block = document.createElement("div");
       block.className = "group-block";
-      const h = document.createElement("h2");
-      h.className = "group-title";
-      h.textContent = "General Rules";
+
+      const h = document.createElement("button");
+      h.type = "button";
+      h.className = "group-title group-title-toggle collapsed";
+      h.innerHTML = `<span class="group-title-text">General Rules</span><span class="group-chevron">&#9656;</span>`;
       block.appendChild(h);
+
+      const rulesWrap = document.createElement("div");
+      rulesWrap.className = "group-defects";
+      rulesWrap.hidden = true;
+
       const ul = document.createElement("ul");
       ul.className = "rules-list";
       for (const rule of section.generalRules) {
@@ -256,30 +306,55 @@
         li.textContent = rule;
         ul.appendChild(li);
       }
-      block.appendChild(ul);
+      rulesWrap.appendChild(ul);
+      block.appendChild(rulesWrap);
+
+      h.addEventListener("click", () => {
+        rulesWrap.hidden = !rulesWrap.hidden;
+        h.classList.toggle("collapsed", rulesWrap.hidden);
+      });
+
       wrap.appendChild(block);
     }
 
     for (const group of section.groups || []) {
       const block = document.createElement("div");
       block.className = "group-block";
-      const h = document.createElement("h2");
-      h.className = "group-title";
-      h.textContent = group.title;
+
+      const h = document.createElement("button");
+      h.type = "button";
+      h.className = "group-title group-title-toggle collapsed";
+      h.innerHTML = `<span class="group-title-text">${esc(group.title)}</span><span class="group-chevron">&#9656;</span>`;
       block.appendChild(h);
+
+      const defectsWrap = document.createElement("div");
+      defectsWrap.className = "group-defects";
+      defectsWrap.hidden = true;
 
       for (const d of resolveDefectsForVersion(group.defects)) {
         const card = document.createElement("div");
-        card.className = "defect-card";
-        card.innerHTML = `
-          <div class="dc-top">
-            <span class="defect-code">${esc(d.code)}</span>
-            <span class="defect-name">${esc(d.name)}</span>
-          </div>
-          <div class="defect-desc">${esc(d.desc)}</div>
-        `;
-        block.appendChild(card);
+        if (d.isNote) {
+          card.className = "notes-block";
+          card.innerHTML = `<b>${esc(d.name)}:</b> ${esc(d.desc)}`;
+        } else {
+          card.className = "defect-card";
+          card.innerHTML = `
+            <div class="dc-top">
+              <span class="defect-code">${esc(d.code)}</span>
+              <span class="defect-name">${esc(d.name)}</span>
+            </div>
+            <div class="defect-desc">${esc(d.desc)}</div>
+          `;
+        }
+        defectsWrap.appendChild(card);
       }
+      block.appendChild(defectsWrap);
+
+      h.addEventListener("click", () => {
+        defectsWrap.hidden = !defectsWrap.hidden;
+        h.classList.toggle("collapsed", defectsWrap.hidden);
+      });
+
       wrap.appendChild(block);
     }
 
@@ -555,7 +630,11 @@
         if (row.type === "material" || row.type === "defect") {
           stack = [{ view: "home" }, { view: "materials-home" }, { view: "category", catKey: row.catKey }, { view: "material", catKey: row.catKey, materialId: row.materialId }];
         } else if (row.type === "codes-section" || row.type === "codes-defect") {
-          stack = [{ view: "home" }, { view: "codes-home" }, { view: "codes-section", sectionId: row.sectionId }];
+          const source = CODES[row.sectionId].source || "Other";
+          const siblingCount = Object.keys(CODES).filter((id) => (CODES[id].source || "Other") === source).length;
+          stack = siblingCount === 1
+            ? [{ view: "home" }, { view: "codes-home" }, { view: "codes-section", sectionId: row.sectionId }]
+            : [{ view: "home" }, { view: "codes-home" }, { view: "codes-group", source }, { view: "codes-section", sectionId: row.sectionId }];
         } else if (row.type === "pure") {
           stack = [{ view: "home" }, { view: "pure" }];
         } else if (row.type === "operator-review") {

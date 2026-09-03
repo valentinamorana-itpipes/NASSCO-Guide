@@ -69,7 +69,7 @@ html, body {
   padding: 0;
   width: 380px;
   min-height: 520px;
-  max-height: 600px;
+  max-height: 660px;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -445,6 +445,15 @@ html, body {
   font-size: 11.5px;
 }
 
+/* Truncate to one line so a long summary can't make one card taller than
+   its siblings — used on container tiles like the Codes source groups. */
+.mc-summary.clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* ---- Material detail ---- */
 .material-header {
   display: flex;
@@ -500,6 +509,30 @@ html, body {
   flex-shrink: 0;
 }
 
+/* ---- Collapsible group headers (accordion) — Codes sections only ---- */
+.group-title-toggle {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0 0 5px;
+  cursor: pointer;
+  text-align: left;
+}
+.group-title-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+.group-title-toggle:hover { color: var(--codes-dark); }
+.rigid-cat .group-title-toggle:hover { color: var(--rigid-dark); }
+
+.group-chevron {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+.group-title-toggle:not(.collapsed) .group-chevron { transform: rotate(90deg); }
+
+.group-defects { margin-top: 7px; }
+
 .defect-card {
   border: 1px solid var(--border);
   border-left: 3px solid var(--teal);
@@ -548,6 +581,7 @@ html, body {
 
 .notes-block {
   margin-top: 4px;
+  margin-bottom: 6px;
   font-size: 11.5px;
   line-height: 1.5;
   background: var(--badge-bg);

@@ -427,7 +427,7 @@ const CODES = {
 
   taps: {
     id: "taps",
-    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
+    source: "Construction Features & Miscellaneous",
     label: "Taps",
     blurb: "Code: T. Descriptors: B (Break-in), F (Factory), R (Rehabilitated), S (Saddle). Modifiers, most to least significant: I (Intruding) > D (Defective) > C (Capped) > A (Activity) > B (Abandoned).",
     generalRules: [
@@ -480,7 +480,7 @@ const CODES = {
 
   sealingMaterial: {
     id: "sealingMaterial",
-    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
+    source: "Construction Features & Miscellaneous",
     label: "Intruding Sealing Material",
     blurb: "Code: IS. Descriptors: GT (Grout), SR (Sealing Ring), Z (Other). Modifiers on ISSR only (required in V7/V8): B (Broken), H (Hanging), L (Loose/Poorly Fitting).",
     generalRules: [
@@ -510,7 +510,7 @@ const CODES = {
 
   lineDirection: {
     id: "lineDirection",
-    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
+    source: "Construction Features & Miscellaneous",
     label: "Line Direction",
     blurb: "Code: L. A deliberate, gradual construction feature — not a defect. Full codes are L + direction: LL/LR/LU/LD for a single direction, LLU/LLD/LRU/LRD for a diagonal.",
     generalRules: [
@@ -544,7 +544,7 @@ const CODES = {
 
   accessPoints: {
     id: "accessPoints",
-    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
+    source: "Construction Features & Miscellaneous",
     label: "Access Points",
     blurb: "Code: A. Required at the start of every survey, and at the end wherever the access point was reached. Modifiers: M (Mainline/right-of-way), P (Property), H (House).",
     generalRules: [
@@ -572,7 +572,7 @@ const CODES = {
 
   misc: {
     id: "misc",
-    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
+    source: "Construction Features & Miscellaneous",
     label: "Miscellaneous",
     blurb: "Code: M. General condition and survey-status codes that don't fit any other family — water level, survey abandonment, material/shape/lining changes, and general observations.",
     groups: [
@@ -658,14 +658,26 @@ const CODES = {
       {
         title: "Infiltration (I)",
         defects: [
-          { code: "ISB", codeV6: "IS", nameV6: "Stain", descV6: "Dry at the time of inspection — evidence of past infiltration, not current moisture. V6 has no location modifier — barrel and joint stains both fall under one generic IS code.", name: "Stain, Barrel", desc: "Dry at the time of inspection — the discoloration is evidence of past infiltration, not current moisture." },
-          { code: "ISJ", codeV6: "IS", nameV6: "Stain", descV6: "Dry at the time of inspection — evidence of past infiltration, not current moisture. V6 has no location modifier — barrel and joint stains both fall under one generic IS code.", name: "Stain, Joint", desc: "Dry at the time of inspection. Look for a triangle-shaped stain at the joint; without that shape, it could just be dirt." },
-          { code: "IWJ", codeV6: "IW", nameV6: "Weeper", descV6: "Wet with no visible moving water. V6 has no location modifier — just code IW.", name: "Weeper, Joint", desc: "Wet with no visible moving water. If the joint is wet but the surrounding pipe wall is dry, the Pre-Cleaning field doesn't matter here — that field only matters when a flushing nozzle was present or cleaning obviously happened during the inspection (wall visibly wet all the way around)." },
-          { code: "IDB", codeV6: "ID", nameV6: "Dripper", descV6: "A steady drip. V6 has no location modifier — barrel and joint drips both fall under one generic ID code.", name: "Dripper, Barrel", desc: "A steady drip along the barrel, typically tied to a structural defect." },
-          { code: "IDJ", codeV6: "ID", nameV6: "Dripper", descV6: "A steady drip. V6 has no location modifier — barrel and joint drips both fall under one generic ID code.", name: "Dripper, Joint", desc: "A steady drip at the joint — more than a weeper, less than a runner." },
-          { code: "IRC", codeV6: "IR", nameV6: "Runner", descV6: "Continuous flow without pressure. V6 has no location modifier — a connection runner and a joint runner both fall under one generic IR code.", name: "Runner, Connection", desc: "Continuous flow without pressure at a tap connection — only used on break-in or intruding taps, since a factory tap (TF) has no connection for it to enter through." },
-          { code: "IRJ", codeV6: "IR", nameV6: "Runner", descV6: "Continuous flow without pressure. V6 has no location modifier — a connection runner and a joint runner both fall under one generic IR code.", name: "Runner, Joint", desc: "Runs like a faucet at the joint, but without pressure behind it." },
-          { code: "IGB", codeV6: "IG", nameV6: "Gusher", descV6: "Water forcing its way through a defect and gushing in under pressure. V6 has no location modifier — just code IG.", name: "Gusher, Barrel", desc: "Water forcing its way through a defect and gushing in under pressure." }
+          { code: "ISB", codeV6: "IS", nameV6: "Stain", descV6: "Dry at the time of inspection — evidence of past infiltration, not current moisture. V6 has no location modifier — all Stain locations fall under one generic IS code.", name: "Stain, Barrel", desc: "Dry at the time of inspection — the discoloration is evidence of past infiltration, not current moisture." },
+          { code: "ISC", codeV6: "IS", nameV6: "Stain", descV6: "Dry at the time of inspection — evidence of past infiltration, not current moisture. V6 has no location modifier — all Stain locations fall under one generic IS code.", name: "Stain, Connection", desc: "Dry at the time of inspection — discoloration around a tap connection, evidence of past infiltration there rather than current moisture." },
+          { code: "ISJ", codeV6: "IS", nameV6: "Stain", descV6: "Dry at the time of inspection — evidence of past infiltration, not current moisture. V6 has no location modifier — all Stain locations fall under one generic IS code.", name: "Stain, Joint", desc: "Dry at the time of inspection. Look for a triangle-shaped stain at the joint; without that shape, it could just be dirt." },
+          { code: "ISL", codeV6: "IS", nameV6: "Stain", descV6: "Dry at the time of inspection — evidence of past infiltration, not current moisture. V6 has no location modifier — all Stain locations fall under one generic IS code.", name: "Stain, Lateral", desc: "Dry at the time of inspection — discoloration where a lateral enters the mainline, evidence of past infiltration through a defect in the lateral." },
+          { code: "IWB", codeV6: "IW", nameV6: "Weeper", descV6: "Wet with no visible moving water. V6 has no location modifier — all Weeper locations fall under one generic IW code.", name: "Weeper, Barrel", desc: "Seeping/weeping moisture along the barrel or pipe wall, with no visible moving water." },
+          { code: "IWC", codeV6: "IW", nameV6: "Weeper", descV6: "Wet with no visible moving water. V6 has no location modifier — all Weeper locations fall under one generic IW code.", name: "Weeper, Connection", desc: "Seeping/weeping moisture around a tap connection, with no visible moving water." },
+          { code: "IWJ", codeV6: "IW", nameV6: "Weeper", descV6: "Wet with no visible moving water. V6 has no location modifier — all Weeper locations fall under one generic IW code.", name: "Weeper, Joint", desc: "Wet with no visible moving water. If the joint is wet but the surrounding pipe wall is dry, the Pre-Cleaning field doesn't matter here — that field only matters when a flushing nozzle was present or cleaning obviously happened during the inspection (wall visibly wet all the way around)." },
+          { code: "IWL", codeV6: "IW", nameV6: "Weeper", descV6: "Wet with no visible moving water. V6 has no location modifier — all Weeper locations fall under one generic IW code.", name: "Weeper, Lateral", desc: "Seeping/weeping moisture where a lateral enters the mainline, with no visible moving water." },
+          { code: "IDB", codeV6: "ID", nameV6: "Dripper", descV6: "A steady drip. V6 has no location modifier — all Dripper locations fall under one generic ID code.", name: "Dripper, Barrel", desc: "A steady drip along the barrel, typically tied to a structural defect." },
+          { code: "IDC", codeV6: "ID", nameV6: "Dripper", descV6: "A steady drip. V6 has no location modifier — all Dripper locations fall under one generic ID code.", name: "Dripper, Connection", desc: "A steady drip around a tap connection." },
+          { code: "IDJ", codeV6: "ID", nameV6: "Dripper", descV6: "A steady drip. V6 has no location modifier — all Dripper locations fall under one generic ID code.", name: "Dripper, Joint", desc: "A steady drip at the joint — more than a weeper, less than a runner." },
+          { code: "IDL", codeV6: "ID", nameV6: "Dripper", descV6: "A steady drip. V6 has no location modifier — all Dripper locations fall under one generic ID code.", name: "Dripper, Lateral", desc: "A steady drip where a lateral enters the mainline, through a visible defect in the lateral." },
+          { code: "IRB", codeV6: "IR", nameV6: "Runner", descV6: "Continuous flow without pressure. V6 has no location modifier — all Runner locations fall under one generic IR code.", name: "Runner, Barrel", desc: "Runs like a faucet along the barrel, but without pressure behind it." },
+          { code: "IRC", codeV6: "IR", nameV6: "Runner", descV6: "Continuous flow without pressure. V6 has no location modifier — all Runner locations fall under one generic IR code.", name: "Runner, Connection", desc: "Continuous flow without pressure at a tap connection — only used on break-in or intruding taps, since a factory tap (TF) has no connection for it to enter through." },
+          { code: "IRJ", codeV6: "IR", nameV6: "Runner", descV6: "Continuous flow without pressure. V6 has no location modifier — all Runner locations fall under one generic IR code.", name: "Runner, Joint", desc: "Runs like a faucet at the joint, but without pressure behind it." },
+          { code: "IRL", codeV6: "IR", nameV6: "Runner", descV6: "Continuous flow without pressure. V6 has no location modifier — all Runner locations fall under one generic IR code.", name: "Runner, Lateral", desc: "Runs like a faucet where a lateral enters the mainline, but without pressure behind it." },
+          { code: "IGB", codeV6: "IG", nameV6: "Gusher", descV6: "Water forcing its way through a defect and gushing in under pressure. V6 has no location modifier — all Gusher locations fall under one generic IG code.", name: "Gusher, Barrel", desc: "Water forcing its way through a defect and gushing in under pressure." },
+          { code: "IGC", codeV6: "IG", nameV6: "Gusher", descV6: "Water forcing its way through a defect and gushing in under pressure. V6 has no location modifier — all Gusher locations fall under one generic IG code.", name: "Gusher, Connection", desc: "Water forcing its way in around a tap connection and gushing under pressure." },
+          { code: "IGJ", codeV6: "IG", nameV6: "Gusher", descV6: "Water forcing its way through a defect and gushing in under pressure. V6 has no location modifier — all Gusher locations fall under one generic IG code.", name: "Gusher, Joint", desc: "Water forcing its way through a joint and gushing in under pressure." },
+          { code: "IGL", codeV6: "IG", nameV6: "Gusher", descV6: "Water forcing its way through a defect and gushing in under pressure. V6 has no location modifier — all Gusher locations fall under one generic IG code.", name: "Gusher, Lateral", desc: "Water forcing its way in through a visible defect in a lateral and gushing under pressure." }
         ]
       },
       {
@@ -824,6 +836,16 @@ const CODES = {
           { code: "RPP", name: "Patch", desc: "A patch installed over a defect from OUTSIDE the pipe. RPP can resemble HSV, but soil isn't uniformly flat — if the surface is unusually even and flat, it's more likely an RPP. Remarks should note the patch material." },
           { code: "RPR", name: "Replacement", desc: "A section of pipe has been replaced, possibly in a different material. A color/texture change at a tap fitting (e.g. PVC green-to-white, or DIP's cast-iron tap fittings) is NOT an RPR or MMC by itself. An RPR of the same material as the host pipe is still an RPR — it's an obviously new, short section, not necessarily a material change." },
           { code: "RPRD", name: "Replacement Defective", desc: "The replacement wasn't effective, was damaged during installation, wasn't long enough to correct the original defects, or damaged the host pipe. Enter the resulting defect codes as new observations (e.g. an RPRD due to a JOL gets followed by a JOL code) — any defect at the RPR makes it defective." }
+        ]
+      },
+      {
+        title: "Anchor Holes",
+        defects: [
+          { code: "General Information", isNote: true, name: "About Anchor Holes", desc: "Circular cuts, usually under 1 inch, considered a construction feature rather than a defect — created to lower pipe sections into the trench during installation. Mostly found in storm sewer, but can also appear in sanitary sewer." },
+          { code: "H", isNote: true, name: "Not Used", desc: "Do not use H codes for anchor holes — they're intentionally placed and don't indicate structural damage." },
+          { code: "MGO", name: "Note at Start of Inspection", desc: "Add an MGO at the beginning of the inspection with the remark \"Anchor holes throughout asset.\"" },
+          { code: "RPP", name: "Healthy Anchor Hole", desc: "Healthy anchor holes do not need to be coded individually — the initial MGO is enough." },
+          { code: "RPPD", name: "Defective Anchor Hole", desc: "An anchor hole is considered defective if any defect is touching it or the patch and it allows the ingress of water, roots, or soil. If the object used for sealing is intruding into the manhole (e.g. a brick), add a remark stating the material or object. Add the accompanying defect in the mainline as a separate code (CL, RFB, ISB, etc.)." }
         ]
       },
       {
