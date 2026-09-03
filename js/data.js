@@ -359,6 +359,7 @@ const MATERIALS = {
 const CODES = {
   continuousDefects: {
     id: "continuousDefects",
+    source: "Continuous Defects Clinic",
     label: "Continuous Defects Strategy",
     blurb: "How far a Truly Continuous or Repeated Continuous defect is allowed to wander, and which code families it applies to at all.",
     generalRules: [
@@ -426,6 +427,7 @@ const CODES = {
 
   taps: {
     id: "taps",
+    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
     label: "Taps",
     blurb: "Code: T. Descriptors: B (Break-in), F (Factory), R (Rehabilitated), S (Saddle). Modifiers, most to least significant: I (Intruding) > D (Defective) > C (Capped) > A (Activity) > B (Abandoned).",
     generalRules: [
@@ -478,6 +480,7 @@ const CODES = {
 
   sealingMaterial: {
     id: "sealingMaterial",
+    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
     label: "Intruding Sealing Material",
     blurb: "Code: IS. Descriptors: GT (Grout), SR (Sealing Ring), Z (Other). Modifiers on ISSR only (required in V7/V8): B (Broken), H (Hanging), L (Loose/Poorly Fitting).",
     generalRules: [
@@ -507,6 +510,7 @@ const CODES = {
 
   lineDirection: {
     id: "lineDirection",
+    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
     label: "Line Direction",
     blurb: "Code: L. A deliberate, gradual construction feature — not a defect. Full codes are L + direction: LL/LR/LU/LD for a single direction, LLU/LLD/LRU/LRD for a diagonal.",
     generalRules: [
@@ -540,6 +544,7 @@ const CODES = {
 
   accessPoints: {
     id: "accessPoints",
+    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
     label: "Access Points",
     blurb: "Code: A. Required at the start of every survey, and at the end wherever the access point was reached. Modifiers: M (Mainline/right-of-way), P (Property), H (House).",
     generalRules: [
@@ -567,6 +572,7 @@ const CODES = {
 
   misc: {
     id: "misc",
+    source: "Construction Features & Miscellaneous Coding + Pipe Materials",
     label: "Miscellaneous",
     blurb: "Code: M. General condition and survey-status codes that don't fit any other family — water level, survey abandonment, material/shape/lining changes, and general observations.",
     groups: [
@@ -602,6 +608,7 @@ const CODES = {
 
   om: {
     id: "om",
+    source: "O&M Defect Coding",
     label: "Operation & Maintenance",
     blurb: "Code families: D (Deposits), R (Roots), I (Infiltration), OB (Obstacles), V (Vermin), G (Grout Test and Seal) — conditions from ongoing use and groundwater, not construction or structural failure.",
     generalRules: [
@@ -701,6 +708,7 @@ const CODES = {
 
   structural: {
     id: "structural",
+    source: "Structural Defects",
     label: "Structural Defects",
     blurb: "The full family of structural defect codes: Cracks, Fractures, Broken, Hole, Deformed/Buckling, Collapse, Joints, Surface Damage, Lining Features, Weld Failure, Point Repair, and Brickwork.",
     groups: [

@@ -191,22 +191,35 @@
 
     const sectionIds = Object.keys(CODES).sort((a, b) => CODES[a].label.localeCompare(CODES[b].label));
 
-    for (const sectionId of sectionIds) {
-      const section = CODES[sectionId];
-      const isStrategy = sectionId === "continuousDefects";
-      const btn = document.createElement("button");
-      btn.className = "material-card" + (isStrategy ? " material-card-compact" : "");
-      btn.innerHTML = `
-        ${matIcon("solid", "on-codes" + (isStrategy ? " sm" : ""))}
-        <div class="mc-body">
-          <div class="mc-top">
-            <span class="mc-name">${esc(section.label)}</span>
+    const sourceOrder = [...new Set(sectionIds.map((id) => CODES[id].source || "Other"))].sort((a, b) => a.localeCompare(b));
+
+    for (const source of sourceOrder) {
+      const block = document.createElement("div");
+      block.className = "group-block";
+      const h = document.createElement("h2");
+      h.className = "group-title";
+      h.textContent = source;
+      block.appendChild(h);
+
+      for (const sectionId of sectionIds.filter((id) => (CODES[id].source || "Other") === source)) {
+        const section = CODES[sectionId];
+        const isStrategy = sectionId === "continuousDefects";
+        const btn = document.createElement("button");
+        btn.className = "material-card" + (isStrategy ? " material-card-compact" : "");
+        btn.innerHTML = `
+          ${matIcon("solid", "on-codes" + (isStrategy ? " sm" : ""))}
+          <div class="mc-body">
+            <div class="mc-top">
+              <span class="mc-name">${esc(section.label)}</span>
+            </div>
+            ${isStrategy ? "" : `<div class="mc-summary">${esc(section.blurb || "")}</div>`}
           </div>
-          ${isStrategy ? "" : `<div class="mc-summary">${esc(section.blurb || "")}</div>`}
-        </div>
-      `;
-      btn.addEventListener("click", () => push({ view: "codes-section", sectionId }));
-      wrap.appendChild(btn);
+        `;
+        btn.addEventListener("click", () => push({ view: "codes-section", sectionId }));
+        block.appendChild(btn);
+      }
+
+      wrap.appendChild(block);
     }
 
     mount(wrap);
