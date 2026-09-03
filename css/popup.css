@@ -544,6 +544,14 @@ html, body {
 .rigid-cat .defect-card { border-left-color: var(--rigid); }
 .codes-cat .defect-card { border-left-color: var(--codes); }
 
+/* Landed here from a search result — draw the eye to the exact card. */
+.defect-card-focus {
+  border-color: var(--codes);
+  border-left-width: 3px;
+  box-shadow: 0 0 0 2px var(--codes-tint);
+}
+.rigid-cat .defect-card-focus { border-color: var(--rigid); box-shadow: 0 0 0 2px var(--rigid-tint); }
+
 .defect-card .dc-top {
   display: flex;
   align-items: baseline;

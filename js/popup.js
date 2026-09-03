@@ -43,16 +43,19 @@
   // every defect is shown as-is with its resolved code.
   function resolveDefectsForVersion(defects) {
     if (versionFilter !== "v6") {
-      return defects.map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold, isNote: d.isNote }));
+      return defects.map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold, isNote: d.isNote, sourceCodes: [d.code] }));
     }
-    const seen = new Set();
+    const seen = new Map();
     const out = [];
     for (const d of defects) {
       if (d.noV6) continue;
       const code = d.codeV6 || d.code;
-      if (seen.has(code)) continue;
-      seen.add(code);
-      out.push({ code, name: d.nameV6 || d.name, desc: d.descV6 || d.desc, threshold: d.codeV6 ? undefined : d.threshold, isNote: d.isNote });
+      if (seen.has(code)) {
+        out[seen.get(code)].sourceCodes.push(d.code);
+        continue;
+      }
+      seen.set(code, out.length);
+      out.push({ code, name: d.nameV6 || d.name, desc: d.descV6 || d.desc, threshold: d.codeV6 ? undefined : d.threshold, isNote: d.isNote, sourceCodes: [d.code] });
     }
     return out;
   }
@@ -117,10 +120,10 @@
     if (state.view === "home") return renderHome();
     if (state.view === "materials-home") return renderMaterialsHome();
     if (state.view === "category") return renderCategory(state.catKey);
-    if (state.view === "material") return renderMaterial(state.catKey, state.materialId);
+    if (state.view === "material") return renderMaterial(state.catKey, state.materialId, state.focusGroup, state.focusCode);
     if (state.view === "codes-home") return renderCodesHome();
     if (state.view === "codes-group") return renderCodesGroup(state.source);
-    if (state.view === "codes-section") return renderCodesSection(state.sectionId);
+    if (state.view === "codes-section") return renderCodesSection(state.sectionId, state.focusGroup, state.focusCode);
     if (state.view === "pure") return renderPure();
     if (state.view === "operator-review") return renderOperatorReview();
     if (state.view === "search") return renderSearch();
@@ -269,7 +272,7 @@
     mount(wrap);
   }
 
-  function renderCodesSection(sectionId) {
+  function renderCodesSection(sectionId, focusGroup, focusCode) {
     const section = CODES[sectionId];
     if (!section) return renderCodesHome();
 
@@ -318,19 +321,22 @@
       wrap.appendChild(block);
     }
 
+    let focusCard = null;
+
     for (const group of section.groups || []) {
       const block = document.createElement("div");
       block.className = "group-block";
+      const shouldExpand = !!focusGroup && group.title === focusGroup;
 
       const h = document.createElement("button");
       h.type = "button";
-      h.className = "group-title group-title-toggle collapsed";
+      h.className = "group-title group-title-toggle" + (shouldExpand ? "" : " collapsed");
       h.innerHTML = `<span class="group-title-text">${esc(group.title)}</span><span class="group-chevron">&#9656;</span>`;
       block.appendChild(h);
 
       const defectsWrap = document.createElement("div");
       defectsWrap.className = "group-defects";
-      defectsWrap.hidden = true;
+      defectsWrap.hidden = !shouldExpand;
 
       for (const d of resolveDefectsForVersion(group.defects)) {
         const card = document.createElement("div");
@@ -347,6 +353,10 @@
             <div class="defect-desc">${esc(d.desc)}</div>
           `;
         }
+        if (focusCode && d.sourceCodes && d.sourceCodes.includes(focusCode)) {
+          card.classList.add("defect-card-focus");
+          focusCard = card;
+        }
         defectsWrap.appendChild(card);
       }
       block.appendChild(defectsWrap);
@@ -360,6 +370,7 @@
     }
 
     mount(wrap);
+    if (focusCard) focusCard.scrollIntoView({ block: "center" });
   }
 
   function renderPure() {
@@ -461,7 +472,7 @@
     mount(wrap);
   }
 
-  function renderMaterial(catKey, materialId) {
+  function renderMaterial(catKey, materialId, focusGroup, focusCode) {
     const cat = MATERIALS[catKey];
     const mat = cat.items.find((m) => m.id === materialId);
     if (!mat) return renderHome();
@@ -499,6 +510,8 @@
       wrap.appendChild(dl);
     }
 
+    let focusCard = null;
+
     for (const group of mat.groups || []) {
       const block = document.createElement("div");
       block.className = "group-block";
@@ -518,6 +531,10 @@
           <div class="defect-desc">${esc(d.desc)}</div>
           ${d.threshold ? `<div class="defect-threshold"><b>Threshold/rule:</b> ${esc(d.threshold)}</div>` : ""}
         `;
+        if (focusCode && group.title === focusGroup && d.code === focusCode) {
+          card.classList.add("defect-card-focus");
+          focusCard = card;
+        }
         block.appendChild(card);
       }
       wrap.appendChild(block);
@@ -531,6 +548,7 @@
     }
 
     mount(wrap);
+    if (focusCard) focusCard.scrollIntoView({ block: "center" });
   }
 
   function renderSearch() {
@@ -629,13 +647,23 @@
       btn.addEventListener("click", () => {
         searchInput.value = "";
         if (row.type === "material" || row.type === "defect") {
-          stack = [{ view: "home" }, { view: "materials-home" }, { view: "category", catKey: row.catKey }, { view: "material", catKey: row.catKey, materialId: row.materialId }];
+          const materialState = { view: "material", catKey: row.catKey, materialId: row.materialId };
+          if (row.type === "defect") {
+            materialState.focusGroup = row.group;
+            materialState.focusCode = row.code;
+          }
+          stack = [{ view: "home" }, { view: "materials-home" }, { view: "category", catKey: row.catKey }, materialState];
         } else if (row.type === "codes-section" || row.type === "codes-defect") {
           const source = CODES[row.sectionId].source || "Other";
           const siblingCount = Object.keys(CODES).filter((id) => (CODES[id].source || "Other") === source).length;
+          const sectionState = { view: "codes-section", sectionId: row.sectionId };
+          if (row.type === "codes-defect") {
+            sectionState.focusGroup = row.group;
+            sectionState.focusCode = row.code;
+          }
           stack = siblingCount === 1
-            ? [{ view: "home" }, { view: "codes-home" }, { view: "codes-section", sectionId: row.sectionId }]
-            : [{ view: "home" }, { view: "codes-home" }, { view: "codes-group", source }, { view: "codes-section", sectionId: row.sectionId }];
+            ? [{ view: "home" }, { view: "codes-home" }, sectionState]
+            : [{ view: "home" }, { view: "codes-home" }, { view: "codes-group", source }, sectionState];
         } else if (row.type === "pure") {
           stack = [{ view: "home" }, { view: "pure" }];
         } else if (row.type === "operator-review") {
