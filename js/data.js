@@ -605,6 +605,7 @@ const CODES = {
     label: "Operation & Maintenance",
     blurb: "Code families: D (Deposits), R (Roots), I (Infiltration), OB (Obstacles), V (Vermin), G (Grout Test and Seal) — conditions from ongoing use and groundwater, not construction or structural failure.",
     generalRules: [
+      "V6 doesn't use the B (Barrel)/C (Connection)/J (Joint)/L (Lateral) location modifiers on Infiltration codes — code just ID, IS, IW, IR, or IG. V7/V8 require the modifier.",
       "Deposits (D) and Obstacles (OB) record % cross-sectional loss (CSL) to the nearest 5% in the Value % column.",
       "Roots (R) also record CSL to the nearest 5%, except the F (Fine) descriptor, which doesn't use Value.",
       "When a deposit or root mass appears on both sides of the pipe, use two entries with matching clock positions — or, in V8, a single entry with two clock positions.",
@@ -651,14 +652,14 @@ const CODES = {
       {
         title: "Infiltration (I)",
         defects: [
-          { code: "IDB", name: "Dripper, Barrel", desc: "A steady drip along the barrel, typically tied to a structural defect." },
-          { code: "IDJ", name: "Dripper, Joint", desc: "A steady drip at the joint — more than a weeper, less than a runner." },
-          { code: "IGB", name: "Gusher, Barrel", desc: "Water forcing its way through a defect and gushing in under pressure." },
-          { code: "IRC", name: "Runner, Connection", desc: "Continuous flow without pressure at a tap connection — only used on break-in or intruding taps, since a factory tap (TF) has no connection for it to enter through." },
-          { code: "IRJ", name: "Runner, Joint", desc: "Runs like a faucet at the joint, but without pressure behind it." },
-          { code: "ISB", name: "Stain, Barrel", desc: "Dry at the time of inspection — the discoloration is evidence of past infiltration, not current moisture." },
-          { code: "ISJ", name: "Stain, Joint", desc: "Dry at the time of inspection. Look for a triangle-shaped stain at the joint; without that shape, it could just be dirt." },
-          { code: "IWJ", name: "Weeper, Joint", desc: "Wet with no visible moving water. If the joint is wet but the surrounding pipe wall is dry, the Pre-Cleaning field doesn't matter here — that field only matters when a flushing nozzle was present or cleaning obviously happened during the inspection (wall visibly wet all the way around)." }
+          { code: "IDB", codeV6: "ID", name: "Dripper, Barrel", desc: "A steady drip along the barrel, typically tied to a structural defect. V6 doesn't use location modifiers — code it just as ID." },
+          { code: "IDJ", codeV6: "ID", name: "Dripper, Joint", desc: "A steady drip at the joint — more than a weeper, less than a runner. V6 doesn't use location modifiers — code it just as ID." },
+          { code: "IGB", codeV6: "IG", name: "Gusher, Barrel", desc: "Water forcing its way through a defect and gushing in under pressure. V6 doesn't use location modifiers — code it just as IG." },
+          { code: "IRC", codeV6: "IR", name: "Runner, Connection", desc: "Continuous flow without pressure at a tap connection — only used on break-in or intruding taps, since a factory tap (TF) has no connection for it to enter through. V6 doesn't use location modifiers — code it just as IR." },
+          { code: "IRJ", codeV6: "IR", name: "Runner, Joint", desc: "Runs like a faucet at the joint, but without pressure behind it. V6 doesn't use location modifiers — code it just as IR." },
+          { code: "ISB", codeV6: "IS", name: "Stain, Barrel", desc: "Dry at the time of inspection — the discoloration is evidence of past infiltration, not current moisture. V6 doesn't use location modifiers — code it just as IS." },
+          { code: "ISJ", codeV6: "IS", name: "Stain, Joint", desc: "Dry at the time of inspection. Look for a triangle-shaped stain at the joint; without that shape, it could just be dirt. V6 doesn't use location modifiers — code it just as IS." },
+          { code: "IWJ", codeV6: "IW", name: "Weeper, Joint", desc: "Wet with no visible moving water. If the joint is wet but the surrounding pipe wall is dry, the Pre-Cleaning field doesn't matter here — that field only matters when a flushing nozzle was present or cleaning obviously happened during the inspection (wall visibly wet all the way around). V6 doesn't use location modifiers — code it just as IW." }
         ]
       },
       {
