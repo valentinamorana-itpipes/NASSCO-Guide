@@ -747,25 +747,11 @@ const CODES = {
 */
 const PURE_COMPARISON = [
   {
-    id: "active-taps",
-    topic: "Active taps",
-    code: "TFA / TF",
-    standard: "Code the Active modifier if water is actively running OR if any sign of activity is perceived (e.g. a wet tap/pipe wall).",
-    pure: "Code Active only if water is actively running during the inspection; otherwise code TF."
-  },
-  {
     id: "cc-fc",
     topic: "Circumferential Cracks/Fractures split by water",
     code: "CC / FC",
     standard: "If a circumferential defect visibly aligns across a water gap, code it as one defect regardless of water clarity.",
     pure: "Split into two separate observations if the circumferential defect is separated by more than two clock positions."
-  },
-  {
-    id: "continuous-clocks",
-    topic: "Continuous defects — clock movement",
-    code: "RMJ / IWJ",
-    standard: "Clock positions may wander up to 4 clock positions within one continuous defect. For RFJ, keep clocks close and use 1 position instead of multiple.",
-    pure: "Clock positions may wander up to only 2 positions within one continuous defect."
   },
   {
     id: "csl",
@@ -775,11 +761,11 @@ const PURE_COMPARISON = [
     pure: "Code at any % of CSL — if you can see it and it isn't underwater, code it."
   },
   {
-    id: "defective-taps",
-    topic: "Defective taps",
-    code: "TFD / TBD",
-    standard: "Requires actual function/structure degradation (e.g. DSF >10%, JOM, FC). VC alone does not make a tap defective. A hole at the connection (or an enormous hole in the tap) is coded H/SV/VV on the main; otherwise note it only in remarks.",
-    pure: "Defective applies when any defect is seen at all (e.g. VC, or CSL at any level). A hole seen inside the tap should still get an H code on the mainline."
+    id: "offset-holes",
+    topic: "Offset/separated joints with HSV/VV",
+    code: "HSV/VV + JOL/JSL",
+    standard: "Code HSV/VV alongside a significant offset joint.",
+    pure: "Do not code HSV/VV for a joint problem unless the void itself is significant (V7 only — in V8, JSL/JOL already grades as a 5, so HSV isn't needed)."
   },
   {
     id: "jam",
@@ -817,11 +803,25 @@ const PURE_COMPARISON = [
     pure: "Code MWLS at any water level, as long as the sag is visually confirmed."
   },
   {
-    id: "offset-holes",
-    topic: "Offset/separated joints with HSV/VV",
-    code: "HSV/VV + JOL/JSL",
-    standard: "Code HSV/VV alongside a significant offset joint.",
-    pure: "Do not code HSV/VV for a joint problem unless the void itself is significant (V7 only — in V8, JSL/JOL already grades as a 5, so HSV isn't needed)."
+    id: "continuous-clocks",
+    topic: "Continuous defects — clock movement",
+    code: "RMJ / IWJ",
+    standard: "Clock positions may wander up to 4 clock positions within one continuous defect. For RFJ, keep clocks close and use 1 position instead of multiple.",
+    pure: "Clock positions may wander up to only 2 positions within one continuous defect."
+  },
+  {
+    id: "active-taps",
+    topic: "Active taps",
+    code: "TFA / TF",
+    standard: "Code the Active modifier if water is actively running OR if any sign of activity is perceived (e.g. a wet tap/pipe wall).",
+    pure: "Code Active only if water is actively running during the inspection; otherwise code TF."
+  },
+  {
+    id: "defective-taps",
+    topic: "Defective taps",
+    code: "TFD / TBD",
+    standard: "Requires actual function/structure degradation (e.g. DSF >10%, JOM, FC). VC alone does not make a tap defective. A hole at the connection (or an enormous hole in the tap) is coded H/SV/VV on the main; otherwise note it only in remarks.",
+    pure: "Defective applies when any defect is seen at all (e.g. VC, or CSL at any level). A hole seen inside the tap should still get an H code on the mainline."
   }
 ];
 
