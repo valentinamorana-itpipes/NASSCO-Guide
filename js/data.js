@@ -636,7 +636,6 @@ const CODES = {
           { code: "DSC", name: "Hard/Compacted", desc: "Hardened or compacted debris (e.g. spilled, cured concrete), dense and structurally bound — firm or solid whether wet or dry, low porosity, and will physically stop the camera from riding over it. Contrast with DSF: DSF is loose, easily disturbed, and porous, even when it looks solidified." },
           { code: "DSF", name: "Fine", desc: "Fine particulate settled in the invert — can look muddy or fluid, especially once the water turns from clear to brown and \"heavy.\" Wait for clear visual evidence and confirmed circumferential loss before coding deposits underwater." },
           { code: "DSGV", name: "Gravel", desc: "Small pebble-like rocks settled in the invert." },
-          { code: "DSS", name: "Sanitary", desc: "Sanitary deposits (toilet paper, organic material) settled in the invert. V8 only, and only in storm sewer pipes, coded once CSL exceeds 5%." },
           { code: "DSZ", name: "Other", desc: "Unclassified deposit settled in the invert." }
         ]
       },
