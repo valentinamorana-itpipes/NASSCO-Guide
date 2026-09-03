@@ -490,7 +490,7 @@ const CODES = {
       "All IS codes fall at a joint — the Joint (J) notation always applies.",
       "Coded as Repeated when the material is seen at 3 out of 4 joints.",
       "Value: CSL recorded to the nearest 5%, for every descriptor except ISSRL.",
-      "Clocks: 1 or 2, marking the entry and exit points."
+      "Clocks: 2, marking the entry and exit points."
     ],
     groups: [
       {
