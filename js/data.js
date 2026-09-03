@@ -746,7 +746,9 @@ const CODES = {
         title: "Cracks (C) — visible, NOT visibly open",
         defects: [
           { code: "CC", name: "Crack Circumferential", desc: "Circular in nature, common near joints and manholes. Don't confuse with manufacturing defects also seen near joints — if the break looks too perfect, with even/smooth edges, it's likely manufactured and shouldn't be coded. True cracks appear from external pressure on the pipe." },
-          { code: "CH", name: "Crack Hinge", desc: "Occurs concurrently at 12, 3, 6, and 9 o'clock. If one of the longitudinal breaks is open (a Fracture), the whole defect escalates to Fracture Hinge (FH). Coded CH 2/3/4 for the clock positions affected." },
+          { code: "CH2", name: "Crack Longitudinal Hinge, 2", desc: "A hinge-pattern crack affecting 2 of the 4 quadrant positions (12, 3, 6, 9). If one of the longitudinal breaks is open (a Fracture), the whole defect escalates to Fracture Hinge instead." },
+          { code: "CH3", name: "Crack Longitudinal Hinge, 3", desc: "A hinge-pattern crack affecting 3 of the 4 quadrant positions (12, 3, 6, 9). If one of the longitudinal breaks is open (a Fracture), the whole defect escalates to Fracture Hinge instead." },
+          { code: "CH4", name: "Crack Longitudinal Hinge, 4", desc: "A hinge-pattern crack affecting all 4 quadrant positions (12, 3, 6, 9). If one of the longitudinal breaks is open (a Fracture), the whole defect escalates to Fracture Hinge instead." },
           { code: "CL", name: "Crack Longitudinal", desc: "Runs lengthwise along the pipe axis. Common at joints and taps. A closed breakline with no visible gap." },
           { code: "CM", name: "Crack Multiple", desc: "A longitudinal and circumferential break intersecting. If any of the intersecting breaklines is a Fracture, code the whole thing as FM instead. Structural defects from C to X at the same location don't need separate codes — e.g. a CM intersecting an H is coded as H alone, using whichever code has the highest severity." },
           { code: "CS", name: "Crack Spiral", desc: "Coded when a crack changes position or \"turns\" — e.g. starts longitudinal, turns circumferential. Commonly starts at a joint and may return to the same joint; typically doesn't travel across joints. A longitudinal that travels between clock positions becomes a spiral." }
@@ -756,7 +758,9 @@ const CODES = {
         title: "Fractures (F) — visibly open, gap/depth visible",
         defects: [
           { code: "FC", name: "Fracture Circumferential", desc: "Circular, parallel to joints, commonly seen near joints and manholes. If FC appears at every joint with unusually uniform spacing, it's most likely a manufacturing defect and shouldn't be coded." },
-          { code: "FH", name: "Fracture Hinge", desc: "Occurs concurrently at 12, 3, 6, 9. When a fracture at 12 pairs with cracks at 3 and 9, the worse defect (fracture) is what's reported — a combination of an FL and a CL becomes FH, but an FM at the location doesn't qualify. Coded when 3, 6, 9, or 12 are affected; when it covers every clock position, code it 12 to 12. If it causes the rigid pipe to go out-of-round, escalate to Deformed (DR)." },
+          { code: "FH2", name: "Fracture Longitudinal Hinge, 2", desc: "A hinge-pattern fracture affecting 2 of the 4 quadrant positions (12, 3, 6, 9). When a fracture pairs with cracks at the other positions, the worse defect (fracture) is what's reported — a combination of an FL and a CL becomes a Fracture Hinge, but an FM at the location doesn't qualify. If it causes the rigid pipe to go out-of-round, escalate to Deformed (DR)." },
+          { code: "FH3", name: "Fracture Longitudinal Hinge, 3", desc: "A hinge-pattern fracture affecting 3 of the 4 quadrant positions (12, 3, 6, 9). Same escalation and grading logic as FH2/FH4. If it causes the rigid pipe to go out-of-round, escalate to Deformed (DR)." },
+          { code: "FH4", name: "Fracture Longitudinal Hinge, 4", desc: "A hinge-pattern fracture affecting all 4 quadrant positions (12, 3, 6, 9) — the full circumference. Same escalation logic as FH2/FH3. If it causes the rigid pipe to go out-of-round, escalate to Deformed (DR)." },
           { code: "FL", name: "Fracture Longitudinal", desc: "Runs lengthwise along the pipe axis, common at joints and taps. The breakline is visibly open, revealing a gap — that openness is what separates a Fracture from a Crack." },
           { code: "FM", name: "Fracture Multiple", desc: "Where fractures intersect each other, or a fracture intersects a crack — the whole defect is coded FM." },
           { code: "FS", name: "Fracture Spiral", desc: "A single fracture that travels both longitudinally and circumferentially, changing position or \"turning.\" Typically starts at a joint and may return to it; typically doesn't cross joints." }
@@ -795,8 +799,9 @@ const CODES = {
       {
         title: "Collapse (X)",
         defects: [
-          { code: "XB", name: "Collapse, Brick", desc: "Complete loss of structural integrity in a brick sewer — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (>40%). Does NOT use Continuous Defect." },
-          { code: "XP", name: "Collapse, Pipe", desc: "Complete loss of structural integrity in a pipe sewer — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (>40%). Does NOT use Continuous Defect." }
+          { code: "X", noV6: true, name: "Collapse", desc: "Complete loss of structural integrity — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (≥45%). Does NOT use Continuous Defect. V7+ dropped the V6 brick/pipe split back into one generic code." },
+          { code: "XB", noV7: true, name: "Collapse, Brick", desc: "Complete loss of structural integrity in a brick sewer — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (>40%). Does NOT use Continuous Defect. V6 code." },
+          { code: "XP", noV7: true, name: "Collapse, Pipe", desc: "Complete loss of structural integrity in a pipe sewer — greater than 40% cross-sectional area lost, flow conveyance completely disrupted. No descriptors, modifiers, joint, or clocks apply; value is CSL % (>40%). Does NOT use Continuous Defect. V6 code." }
         ]
       },
       {
@@ -804,11 +809,16 @@ const CODES = {
         defects: [
           { code: "JAL", name: "Joint Angular Large", desc: "Out of alignment more than 10°. Caused by pipe movement (usually lost support), unintentionally changing flow direction — shown as left-right snaking of the pipe visible in the flow." },
           { code: "JAM", name: "Joint Angular Medium", desc: "Out of alignment more than 5°, up to 10°. Caused by pipe movement (usually lost support), unintentionally changing flow direction — shown as left-right snaking of the pipe visible in the flow." },
+          { code: "JAS", name: "Joint Angular Small", desc: "Out of alignment up to 5°. Caused by pipe movement (usually lost support), unintentionally changing flow direction — shown as left-right snaking of the pipe visible in the flow." },
           { code: "JOL", name: "Joint Offset Large", desc: "Displaced more than 1.5x pipe wall thickness. Normalized coding adds HSV/HVV when soil/voids are also visible at the JOL; under NASSCO Pure, whether HSV/HVV applies is debatable and depends on the reviewer." },
+          { code: "JOLD", noV6: true, name: "Joint Offset Large, Defective", desc: "A Joint Offset Large (JOL) displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the offset is actually disrupting water flow." },
           { code: "JOM", name: "Joint Offset Medium", desc: "Displaced more than 1 but less than 1.5x the pipe wall thickness." },
-          { code: "JOMD / JOLD", noV6: true, name: "Joint Offset Medium/Large, Defective", desc: "Displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the JOM/JOL is actually disrupting water flow." },
+          { code: "JOMD", noV6: true, name: "Joint Offset Medium, Defective", desc: "A Joint Offset Medium (JOM) displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the offset is actually disrupting water flow." },
+          { code: "JOS", name: "Joint Offset Small", desc: "Displaced less than 1x pipe wall thickness — a minor offset, not yet significant enough to reach Medium." },
+          { code: "JOSD", noV6: true, name: "Joint Offset Small, Defective", desc: "A Joint Offset Small (JOS) displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the offset is actually disrupting water flow." },
           { code: "JSL", name: "Joint Separated Large", desc: "Gap ≥1.5x pipe wall thickness between joints, with evidence of gasket displacement (gasketed systems). Bell-and-spigot: the spigot has pulled back out of the bell — look for an exposed/twisted/missing gasket or a visible gap at the insertion mark. Non-bell-and-spigot (couplers/slip/butt joints): the ends have separated within, or pulled apart from, the coupling. Code JSL with a 90° full-circumference pan confirming the bell is NOT touching the spigot, OR (with no pan) when infiltration/soil/debris ingress confirms it, and the gap is ≥1.5x wall thickness. Don't code JSL if the bell is still visibly touching the spigot. Add HSV/HVV alongside JSL only when the resulting void is significant — a cavern, the full exterior visible through the joint, daylight/running water visible, or a void large enough to risk soil infiltration/settlement/subsidence; ingressing soil/debris through a JSL is a good trigger too. If a separated joint was already repaired from the outside and the repair is visible on pan, don't code JSL — code the RPR only, since it indicates the JSL was already rehabbed." },
-          { code: "JSM", name: "Joint Separated Medium", desc: "Separated up to 1x pipe wall thickness." }
+          { code: "JSM", name: "Joint Separated Medium", desc: "Separated up to 1x pipe wall thickness." },
+          { code: "JSS", name: "Joint Separated Small", desc: "A minor gap between joints, less than what qualifies as Medium — evidence of gasket displacement (gasketed systems) without a significant separation yet." }
         ]
       },
       {
@@ -892,13 +902,13 @@ const CODES = {
         title: "Point Repair (RP)",
         defects: [
           { code: "RPL", name: "Liner", desc: "A short trenchless repair with a different texture than the host pipe — you can often see the spot liner's edge or leftover resin on the host pipe wall." },
-          { code: "RPLD", noV7: true, name: "Liner Defective", desc: "The localized liner repair (RPL) wasn't effective, was damaged during installation, or is otherwise failing — sections hanging or loose at the edges are the most common trigger. Enter the resulting defect codes as new observations. V6 code." },
+          { code: "RPLD", name: "Liner Defective", desc: "The localized liner repair (RPL) wasn't effective, was damaged during installation, or is otherwise failing — sections hanging or loose at the edges are the most common trigger. Enter the resulting defect codes as new observations." },
           { code: "RPP", name: "Patch", desc: "A patch installed over a defect from OUTSIDE the pipe. RPP can resemble HSV, but soil isn't uniformly flat — if the surface is unusually even and flat, it's more likely an RPP. Remarks should note the patch material." },
-          { code: "RPPD", noV7: true, name: "Patch Defective", desc: "The patch wasn't effective, was damaged during installation, or is otherwise failing. Enter the resulting defect codes as new observations — any defect at the patch makes it defective. V6 code." },
+          { code: "RPPD", name: "Patch Defective", desc: "The patch wasn't effective, was damaged during installation, or is otherwise failing. Enter the resulting defect codes as new observations — any defect at the patch makes it defective." },
           { code: "RPR", name: "Replacement", desc: "A section of pipe has been replaced, possibly in a different material. A color/texture change at a tap fitting (e.g. PVC green-to-white, or DIP's cast-iron tap fittings) is NOT an RPR or MMC by itself. An RPR of the same material as the host pipe is still an RPR — it's an obviously new, short section, not necessarily a material change." },
           { code: "RPRD", name: "Replacement Defective", desc: "The replacement wasn't effective, was damaged during installation, wasn't long enough to correct the original defects, or damaged the host pipe. Enter the resulting defect codes as new observations (e.g. an RPRD due to a JOL gets followed by a JOL code) — any defect at the RPR makes it defective." },
-          { code: "RPZ", noV7: true, name: "Other", desc: "A point repair not classified as Liner, Patch, or Replacement — remarks required. In V6/V7 this also covered what V8 split out as its own RPM (Mechanical Sleeve) code; note the method/material in Remarks (e.g. \"mechanical sleeve\")." },
-          { code: "RPZD", noV7: true, name: "Other Defective", desc: "The point repair method itself doesn't fit Liner, Patch, or Replacement — remarks required — and it's failing or damaged. Enter the resulting defect codes as new observations. V6 code." }
+          { code: "RPZ", name: "Other", desc: "A point repair not classified as Liner, Patch, or Replacement — remarks required. In V6/V7 this also covered what V8 split out as its own RPM (Mechanical Sleeve) code; note the method/material in Remarks (e.g. \"mechanical sleeve\")." },
+          { code: "RPZD", name: "Other Defective", desc: "The point repair method itself doesn't fit Liner, Patch, or Replacement — remarks required — and it's failing or damaged. Enter the resulting defect codes as new observations." }
         ]
       },
       {
@@ -917,7 +927,9 @@ const CODES = {
           { code: "DB", name: "Displaced Brick", desc: "One or more bricks have shifted from their original position but haven't fallen." },
           { code: "DI", name: "Dropped Invert", desc: "Brickwork at the invert has separated/dropped relative to the sewer walls, with a gap greater than 1\". May affect one or both sides — estimate the gap to the nearest ½\"." },
           { code: "MB", name: "Missing Brick", desc: "One or more bricks are missing/have fallen away, possibly across more than one course." },
-          { code: "MM", name: "Missing Mortar", desc: "Mortar — the sand/water/cement mix that binds bricks and seals joints — has receded while the bricks are still in place. Modifiers: S (<½\" loss), M (½–2\" loss), L (>2\" loss). Truly Continuous applies if the defect is >3 ft (1 m); Repeated Continuous is NOT applicable to brickwork." }
+          { code: "MML", name: "Missing Mortar, Large", desc: "Mortar — the sand/water/cement mix that binds bricks and seals joints — has receded more than 2\" while the bricks are still in place. Truly Continuous applies if the defect is >3 ft (1 m); Repeated Continuous is NOT applicable to brickwork." },
+          { code: "MMM", name: "Missing Mortar, Medium", desc: "Mortar has receded ½–2\" while the bricks are still in place. Truly Continuous applies if the defect is >3 ft (1 m); Repeated Continuous is NOT applicable to brickwork." },
+          { code: "MMS", name: "Missing Mortar, Small", desc: "Mortar has receded less than ½\" while the bricks are still in place. Truly Continuous applies if the defect is >3 ft (1 m); Repeated Continuous is NOT applicable to brickwork." }
         ]
       }
     ]
