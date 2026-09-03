@@ -707,10 +707,6 @@ const CODES = {
       {
         title: "Roots (R)",
         defects: [
-          { code: "RBB", name: "Ball, Barrel", desc: "Roots gathered into a mass greater than 50% CSL, growing through a defect in the barrel/wall rather than at a joint." },
-          { code: "RBC", name: "Ball, Connection", desc: "Roots gathered into a mass greater than 50% CSL, growing in around a tap connection. Only coded on break-in/saddle/intruding taps, since a factory tap (TF) has no connection for roots to enter through." },
-          { code: "RBJ", name: "Ball, Joint", desc: "Roots gathered into a mass greater than 50% CSL, directly at the joint. If RBJ and DAGS are fused into the same mass, split the total CSL between them rather than double-counting (e.g. a 90% mass = 40% RBJ + 50% DAGS, not 90 of each). Continuous defect coding doesn't apply to a defect this severe — only code it once the root ball itself is ≥50%." },
-          { code: "RBL", name: "Ball, Lateral", desc: "Roots gathered into a mass greater than 50% CSL, entering the mainline through a service lateral." },
           { code: "RFB", name: "Fine, Barrel", desc: "Hair-like roots, under 5% CSL, growing through a defect in the barrel/wall rather than at a joint." },
           { code: "RFC", name: "Fine, Connection", desc: "Fine roots around a tap connection. Only coded on break-in/saddle/intruding taps, since a factory tap (TF) has no connection for roots to enter through. Add a separate mainline entry if visible there; otherwise it only goes in the tap's remarks." },
           { code: "RFJ", name: "Fine, Joint", desc: "Hair-like roots, under 5% CSL, occurring right at the joint. Use separate clock positions if the roots vary by more than two clock positions; use a single code with two clock positions if they're visible on both sides." },
@@ -719,6 +715,10 @@ const CODES = {
           { code: "RMC", name: "Medium, Connection", desc: "A root mass between 5% and 50% CSL, growing in around a tap connection. Only coded on break-in/saddle/intruding taps." },
           { code: "RMJ", name: "Medium, Joint", desc: "A root mass between 5% and 50% CSL, directly at the joint. Use two codes and matching clock positions for both sides." },
           { code: "RML", name: "Medium, Lateral", desc: "Roots entering the mainline through a service lateral. In V7+, use the L modifier for roots inside a lateral even if the lateral is capped." },
+          { code: "RBB", name: "Ball, Barrel", desc: "Roots gathered into a mass greater than 50% CSL, growing through a defect in the barrel/wall rather than at a joint." },
+          { code: "RBC", name: "Ball, Connection", desc: "Roots gathered into a mass greater than 50% CSL, growing in around a tap connection. Only coded on break-in/saddle/intruding taps, since a factory tap (TF) has no connection for roots to enter through." },
+          { code: "RBJ", name: "Ball, Joint", desc: "Roots gathered into a mass greater than 50% CSL, directly at the joint. If RBJ and DAGS are fused into the same mass, split the total CSL between them rather than double-counting (e.g. a 90% mass = 40% RBJ + 50% DAGS, not 90 of each). Continuous defect coding doesn't apply to a defect this severe — only code it once the root ball itself is ≥50%." },
+          { code: "RBL", name: "Ball, Lateral", desc: "Roots gathered into a mass greater than 50% CSL, entering the mainline through a service lateral." },
           { code: "RTB", name: "Tap, Barrel", desc: "A single thick, branch-like root, over ½\" (10mm) thick, growing through the barrel/wall rather than at a joint. Check with the team before coding what might actually be a tree branch (obstacle) instead." },
           { code: "RTC", name: "Tap, Connection", desc: "A single thick, branch-like root, over ½\" (10mm) thick, growing in around a tap connection." },
           { code: "RTJ", name: "Tap, Joint", desc: "A single thick, branch-like root, over ½\" (10mm) thick, at the joint — can expand or create new defects on its own. Check the size/thickness before coding, and check with the team before coding what might actually be a tree branch (obstacle) instead. Doesn't need its own code when already covered by a Roots Medium entry." },
