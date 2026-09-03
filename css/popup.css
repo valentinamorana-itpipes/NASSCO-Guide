@@ -297,6 +297,8 @@ html, body {
 
 .mat-icon.lg { width: 30px; height: 30px; }
 .mat-icon.lg::after { inset: 8px; }
+.mat-icon.sm { width: 18px; height: 18px; }
+.mat-icon.sm::after { inset: 5px; }
 
 /* ---- Home: booklet cover ---- */
 .home-cover {
@@ -397,6 +399,16 @@ html, body {
 .rigid-cat .material-card:hover { border-color: var(--rigid); background: var(--rigid-tint); }
 .codes-cat .material-card:hover { border-color: var(--codes); background: var(--codes-tint); }
 .material-card:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
+
+/* A smaller variant for entries that are a strategy guide, not a code
+   catalog like the rest of the list — e.g. Continuous Defects Strategy
+   inside the Codes menu. */
+.material-card-compact {
+  padding: 6px 11px;
+  margin-bottom: 6px;
+  background: var(--badge-bg);
+}
+.material-card-compact .mc-name { font-size: 11.5px; }
 
 .material-card .mc-body { min-width: 0; }
 

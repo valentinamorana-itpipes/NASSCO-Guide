@@ -193,15 +193,16 @@
 
     for (const sectionId of sectionIds) {
       const section = CODES[sectionId];
+      const isStrategy = sectionId === "continuousDefects";
       const btn = document.createElement("button");
-      btn.className = "material-card";
+      btn.className = "material-card" + (isStrategy ? " material-card-compact" : "");
       btn.innerHTML = `
-        ${matIcon("solid", "on-codes")}
+        ${matIcon("solid", "on-codes" + (isStrategy ? " sm" : ""))}
         <div class="mc-body">
           <div class="mc-top">
             <span class="mc-name">${esc(section.label)}</span>
           </div>
-          <div class="mc-summary">${esc(section.blurb || "")}</div>
+          ${isStrategy ? "" : `<div class="mc-summary">${esc(section.blurb || "")}</div>`}
         </div>
       `;
       btn.addEventListener("click", () => push({ view: "codes-section", sectionId }));
