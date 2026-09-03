@@ -135,7 +135,9 @@
     const wrap = document.createElement("div");
     wrap.className = "codes-cat";
 
-    for (const sectionId of Object.keys(CODES)) {
+    const sectionIds = Object.keys(CODES).sort((a, b) => CODES[a].label.localeCompare(CODES[b].label));
+
+    for (const sectionId of sectionIds) {
       const section = CODES[sectionId];
       const btn = document.createElement("button");
       btn.className = "material-card";
