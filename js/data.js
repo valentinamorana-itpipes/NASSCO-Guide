@@ -606,6 +606,106 @@ const CODES = {
     ]
   },
 
+  om: {
+    id: "om",
+    label: "Operation & Maintenance",
+    blurb: "Code families: D (Deposits), R (Roots), I (Infiltration), OB (Obstacles), V (Vermin), G (Grout Test and Seal) — conditions from ongoing use and groundwater, not construction or structural failure.",
+    versions: "V6 V7 V8",
+    generalRules: [
+      "Deposits (D) and Obstacles (OB) record % cross-sectional loss (CSL) to the nearest 5% in the Value % column.",
+      "Roots (R) also record CSL to the nearest 5%, except the F (Fine) descriptor, which doesn't use Value.",
+      "When a deposit or root mass appears on both sides of the pipe, use two entries with matching clock positions — or, in V8, a single entry with two clock positions.",
+      "Vermin (V) records a headcount in Value Dimension 1 for Rat and Other; Cockroach doesn't use Value.",
+      "Grout Test and Seal (G) records the grout volume (gallons/litres) in Value Dimension 1 and the tested/retested pressure (kPa/psi) in Value Dimension 2."
+    ],
+    groups: [
+      {
+        title: "Deposits — Attached (DA)",
+        defects: [
+          { code: "DAE", name: "Encrustation", desc: "A mineral deposit from ongoing groundwater leakage — organic, not man-made. Needs an external source of ingression (a defective joint, fracture, hole, deformation, or defective tap connection); if none of those are visible, DAE probably isn't the right code. Usually shows up together with its source defect and an infiltration code as three separate entries at the same location. In metal pipe, tuberculation is coded as DAE. NASSCO Pure codes at >1%; sanity coding waits for >5%." },
+          { code: "DAGS", name: "Grease", desc: "A man-made deposit from an external source (kitchens, bathroom products) — never created by soil or nature, so taps/access points are the source to check first. Builds up above the water line in parallel lines, or in a \"shelf\" pattern with round, mountain-like edges; beige/grey/yellowish, similar to candle wax. Use two codes and clock positions for both sides (or a single entry with two clocks in V8). NASSCO Pure codes at ≥1%; sanity coding waits for ≥5%." },
+          { code: "DAR", name: "Ragging", desc: "Human-made debris (towels, diapers, feminine products, toilet paper) caught on a defect or sewer component. Sanitary debris is expected in sanitary sewers, so it doesn't always need coding — code it once it's created a real problem: significant mass, snagged on something, or obstructing flow. If it points to surcharging, add MGO \"evidence of surcharging.\"" },
+          { code: "DAZ", name: "Other", desc: "Unclassified attached deposits — remarks mandatory (e.g. \"Unknown deposit\"). Also used for cockroach nests (remark \"Cockroach nest\"), non-DAGS scale/slime layers (remark \"Slime layer\"), and in V8, metal-pipe tuberculation. Only code once it reaches 5% or more." }
+        ]
+      },
+      {
+        title: "Deposits — Ingress (DN)",
+        defects: [
+          { code: "DNF", name: "Fine", desc: "Fine particulate (soil, sand, mud) washed in from a pipe defect, settling at the bottom — the clue that separates it from DSF is a clear defect it's ingressing through (e.g. a hole or tap). With no visible external origin, DSF is the better code instead." },
+          { code: "DNGV", name: "Gravel", desc: "Small pebble-like rocks washed in from a defect." },
+          { code: "DNZ", name: "Other", desc: "Ingressing deposits not classified by the other descriptors." }
+        ]
+      },
+      {
+        title: "Deposits — Settled (DS)",
+        defects: [
+          { code: "DSC", name: "Hard/Compacted", desc: "Hardened or compacted debris (e.g. spilled, cured concrete), dense and structurally bound — firm or solid whether wet or dry, low porosity, and will physically stop the camera from riding over it. Contrast with DSF: DSF is loose, easily disturbed, and porous, even when it looks solidified." },
+          { code: "DSF", name: "Fine", desc: "Fine particulate settled in the invert — can look muddy or fluid, especially once the water turns from clear to brown and \"heavy.\" Wait for clear visual evidence and confirmed circumferential loss before coding deposits underwater." },
+          { code: "DSGV", name: "Gravel", desc: "Small pebble-like rocks settled in the invert." },
+          { code: "DSS", name: "Sanitary", desc: "Sanitary deposits (toilet paper, organic material) settled in the invert. V8 only, and only in storm sewer pipes, coded once CSL exceeds 5%." },
+          { code: "DSZ", name: "Other", desc: "Unclassified deposit settled in the invert." }
+        ]
+      },
+      {
+        title: "Grout Test and Seal (G)",
+        defects: [
+          { code: "GRT", name: "At a Location", desc: "Coded at the time of the grouting procedure itself, at a specific location." },
+          { code: "GTF", name: "Test Fail", desc: "A grout test or seal that failed at the joint/lateral." },
+          { code: "GTP", name: "Test Pass", desc: "A grout test or seal that passed at the joint/lateral." },
+          { code: "GTU", name: "Unable to Test", desc: "The test couldn't be completed — note why in Remarks." }
+        ]
+      },
+      {
+        title: "Infiltration (I)",
+        defects: [
+          { code: "IDB", name: "Dripper, Barrel", desc: "A steady drip along the barrel, typically tied to a structural defect." },
+          { code: "IDJ", name: "Dripper, Joint", desc: "A steady drip at the joint — more than a weeper, less than a runner." },
+          { code: "IGB", name: "Gusher, Barrel", desc: "Water forcing its way through a defect and gushing in under pressure." },
+          { code: "IRC", name: "Runner, Connection", desc: "Continuous flow without pressure at a tap connection — only used on break-in or intruding taps, since a factory tap (TF) has no connection for it to enter through." },
+          { code: "IRJ", name: "Runner, Joint", desc: "Runs like a faucet at the joint, but without pressure behind it." },
+          { code: "ISB", name: "Stain, Barrel", desc: "Dry at the time of inspection — the discoloration is evidence of past infiltration, not current moisture." },
+          { code: "ISJ", name: "Stain, Joint", desc: "Dry at the time of inspection. Look for a triangle-shaped stain at the joint; without that shape, it could just be dirt." },
+          { code: "IWJ", name: "Weeper, Joint", desc: "Wet with no visible moving water. If the joint is wet but the surrounding pipe wall is dry, the Pre-Cleaning field doesn't matter here — that field only matters when a flushing nozzle was present or cleaning obviously happened during the inspection (wall visibly wet all the way around)." }
+        ]
+      },
+      {
+        title: "Obstacles / Obstructions (OB)",
+        defects: [
+          { code: "OBB", name: "Brick or Masonry", desc: "Bricks or other masonry causing significant CSL/obstructing flow, typically in the invert." },
+          { code: "OBC", name: "Through Connection", desc: "An object entering the main through a tap or lateral." },
+          { code: "OBI", name: "Intruding Through Wall (Cross Bore)", desc: "A utility line (gas, water, fiber, power, telephone) driven through the pipe wall after construction — doesn't look finished, is a public-safety hazard, and must be reported to the owner immediately. Always accompanied by two H codes (or one H with two clock positions) at the points where it meets the pipe wall — that pairing is mandatory." },
+          { code: "OBJ", name: "Wedged in the Joint", desc: "Any object wedged in the joint, with remarks — except intruding sealing rings/material, which get their own IS codes instead." },
+          { code: "OBM", name: "Pipe Material in Invert", desc: "Medium-to-large sections of broken pipe lying in the invert — the source hole is typically found upstream." },
+          { code: "OBN", name: "Construction Debris", desc: "Loose concrete, metal, or wood timbers in the invert, with remarks describing what it is. Hardened concrete from a spill is DSC, not OBN." },
+          { code: "OBP", name: "External Pipe or Cable", desc: "A hose or deliberately installed cable that doesn't intrude through the wall — typically runs the length of the sewer in the invert." },
+          { code: "OBR", name: "Rocks", desc: "Rocks larger than gravel, obstructing flow in the invert." },
+          { code: "OBS", name: "Built into Structure", desc: "An object intentionally built into the pipe structure, looking finished — describe it in remarks." },
+          { code: "OBZ", name: "Other", desc: "An obstacle not clearly classified by the other descriptors (e.g. a plumber's snake or drain cable)." }
+        ]
+      },
+      {
+        title: "Roots (R)",
+        defects: [
+          { code: "RBJ", name: "Ball, Joint", desc: "Roots gathered into a mass greater than 50% CSL, directly at the joint. If RBJ and DAGS are fused into the same mass, split the total CSL between them rather than double-counting (e.g. a 90% mass = 40% RBJ + 50% DAGS, not 90 of each). Continuous defect coding doesn't apply to a defect this severe — only code it once the root ball itself is ≥50%." },
+          { code: "RFC", name: "Fine, Connection", desc: "Fine roots around a tap connection. Only coded on break-in/saddle/intruding taps, since a factory tap (TF) has no connection for roots to enter through. Add a separate mainline entry if visible there; otherwise it only goes in the tap's remarks." },
+          { code: "RFJ", name: "Fine, Joint", desc: "Hair-like roots, under 5% CSL, occurring right at the joint. Use separate clock positions if the roots vary by more than two clock positions; use a single code with two clock positions if they're visible on both sides." },
+          { code: "RMB", name: "Medium, Barrel", desc: "A root mass in the barrel/wall, typically growing through a defect (fracture, hole, etc). Use two codes and matching clock positions for both sides." },
+          { code: "RMJ", name: "Medium, Joint", desc: "A root mass between 5% and 50% CSL, directly at the joint. Use two codes and matching clock positions for both sides." },
+          { code: "RML", name: "Medium, Lateral", desc: "Roots entering the mainline through a service lateral. In V7+, use the L modifier for roots inside a lateral even if the lateral is capped." },
+          { code: "RTJ", name: "Tap, Joint", desc: "A single thick, branch-like root, over ½\" (10mm) thick, at the joint — can expand or create new defects on its own. Check the size/thickness before coding, and check with the team before coding what might actually be a tree branch (obstacle) instead. Doesn't need its own code when already covered by a Roots Medium entry." }
+        ]
+      },
+      {
+        title: "Vermin (V)",
+        defects: [
+          { code: "VC", name: "Cockroach", desc: "Cockroaches or other insects, including spiders. No headcount value is recorded." },
+          { code: "VR", name: "Rat", desc: "Rats or mice — record the count in Value Dimension 1." },
+          { code: "VZ", name: "Other", desc: "Any other animal (worm, lizard, snake, frog) — describe it in Remarks." }
+        ]
+      }
+    ]
+  },
+
   structural: {
     id: "structural",
     label: "Structural Defects",
