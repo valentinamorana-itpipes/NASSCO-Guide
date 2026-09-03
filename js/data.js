@@ -90,20 +90,20 @@ const MATERIALS = {
           {
             title: "Lining Features",
             defects: [
+              { code: "KI (V6) / DFBI (V7)", name: "Bulging Inverse Curvature", desc: "A heart-shaped or inverted-triangle bulge in the liner." },
               { code: "LFAC", name: "Abandoned Connection", desc: "Liner installed over a connection; an outward dimple in the liner is visible at the tap location." },
               { code: "LFB", name: "Blistered", desc: "Bubbles or raised areas on the inside coating caused by trapped air, resin, or water." },
-              { code: "KI (V6) / DFBI (V7)", name: "Bulging Inverse Curvature", desc: "A heart-shaped or inverted-triangle bulge in the liner." },
+              { code: "LFBU (V6) / DFBR (V7)", name: "Small Bumps", desc: "Small raised bumps in the liner, informally called \"little mountains\"." },
+              { code: "LFDC", name: "Discoloration", desc: "Stains with bleeding color forming crack-like lines, from moisture bleeding into the liner from the outside. Usually red or pink; wait for visible intensity before coding." },
               { code: "LFDE", name: "Defective End", desc: "The end of the liner is ragged, warped, and/or shrunken." },
               { code: "LFDL", name: "Delamination", desc: "Liner material layers have separated." },
-              { code: "LFDC", name: "Discoloration", desc: "Stains with bleeding color forming crack-like lines, from moisture bleeding into the liner from the outside. Usually red or pink; wait for visible intensity before coding." },
-              { code: "LFZ", name: "Other", desc: "Must be specified in Remarks — e.g. a circular sticker-like liner patch (round or not, possibly loose/peeling), a spiral-shaped spliced liner seam, or fingernail-like scratches." },
               { code: "LFOC", name: "Overcut Service", desc: "Too much liner cut around the service connection, leaving part of the host pipe exposed without liner. In Sanity, does not require an accompanying tap code; if a hole is also observed at the connection, follow with an HVV/HSV on the mainline." },
               { code: "LFPH", name: "Pinhole (weep points)", desc: "Water drops appearing to fall from the liner; can be black or orange. Sometimes accompanied by an IS (infiltration) code." },
-              { code: "RPL", name: "Point Repair – Liner", desc: "A short liner installed over a defective section — e.g. remark \"CIPP\"." },
               { code: "LFRS", name: "Resin Slug", desc: "Cured resin obstructing a connection." },
-              { code: "LFBU (V6) / DFBR (V7)", name: "Small Bumps", desc: "Small raised bumps in the liner, informally called \"little mountains\"." },
               { code: "LFUC", name: "Undercut Service", desc: "Tap reinstatement cut too small for the tap diameter, obstructing flow. Does not require an accompanying tap code in Sanity." },
-              { code: "LFW", name: "Wrinkle", desc: "Caused by excess liner material (incorrect sizing).", threshold: "Sanity: code when the wrinkle reaches ~5% and is at/near the flow line (it should \"look uncomfortable\" to the eye). NASSCO Pure: code all wrinkles." }
+              { code: "LFW", name: "Wrinkle", desc: "Caused by excess liner material (incorrect sizing).", threshold: "Sanity: code when the wrinkle reaches ~5% and is at/near the flow line (it should \"look uncomfortable\" to the eye). NASSCO Pure: code all wrinkles." },
+              { code: "LFZ", name: "Other", desc: "Must be specified in Remarks — e.g. a circular sticker-like liner patch (round or not, possibly loose/peeling), a spiral-shaped spliced liner seam, or fingernail-like scratches." },
+              { code: "RPL", name: "Point Repair – Liner", desc: "A short liner installed over a defective section — e.g. remark \"CIPP\"." }
             ]
           }
         ],
