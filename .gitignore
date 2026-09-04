@@ -1,5 +1,9 @@
-# Source training decks (large binary files, not part of the shipped extension)
+# Source training decks and manuals (large copyrighted files, not part of the shipped extension)
 ppts/
+*.pdf
+*.PDF
+NASSCO V*Manual*/
+NASSCO V*Manual*.zip
 
 # Local Claude Code session state (machine-specific, not project config)
 .claude/

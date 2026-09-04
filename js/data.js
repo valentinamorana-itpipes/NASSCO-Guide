@@ -475,7 +475,7 @@ const CODES = {
           { code: "TSB", name: "Tap Saddle Abandoned", desc: "No longer in use — may be filled with debris or collapsed; spider-webs are a common sign." },
           { code: "TSC", name: "Tap Saddle Capped", desc: "Capped with a fitting or stopper. A well-installed cap shows no defects, fits the tap's size, and looks machine-made." },
           { code: "TSD", name: "Tap Saddle Defective", desc: "Same defective logic as TBD — any defect at the tap/connection, a gap around the connection, installation against flow, or installation below the springline all make it defective.", photo: "img/codes/tsd.jpg" },
-          { code: "TSI", name: "Tap Saddle Intruding", desc: "Intrudes into the mainline. Defects at the tap itself can go in Remarks; defects at the connection get their own separate mainline entry.", photo: "img/codes/tsi.jpg" }
+          { code: "TSI", name: "Tap Saddle Intruding", desc: "Intrudes into the mainline. Defects at the tap itself can go in Remarks; defects at the connection get their own separate mainline entry." }
         ]
       }
     ]
@@ -707,10 +707,10 @@ const CODES = {
       {
         title: "Roots (R)",
         defects: [
-          { code: "RFB", name: "Fine, Barrel", desc: "Hair-like roots, under 5% CSL, growing through a defect in the barrel/wall rather than at a joint.", photo: "img/codes/rfb.jpg" },
+          { code: "RFB", name: "Fine, Barrel", desc: "Hair-like roots, under 5% CSL, growing through a defect in the barrel/wall rather than at a joint." },
           { code: "RFC", name: "Fine, Connection", desc: "Fine roots around a tap connection. Only coded on break-in/saddle/intruding taps, since a factory tap (TF) has no connection for roots to enter through. Add a separate mainline entry if visible there; otherwise it only goes in the tap's remarks.", photo: "img/codes/rfc.jpg" },
           { code: "RFJ", name: "Fine, Joint", desc: "Hair-like roots, under 5% CSL, occurring right at the joint. Use separate clock positions if the roots vary by more than two clock positions; use a single code with two clock positions if they're visible on both sides.", photo: "img/codes/rfj.jpg" },
-          { code: "RFL", name: "Fine, Lateral", desc: "Hair-like roots, under 5% CSL, entering the mainline through a service lateral.", photo: "img/codes/rfl.jpg" },
+          { code: "RFL", name: "Fine, Lateral", desc: "Hair-like roots, under 5% CSL, entering the mainline through a service lateral." },
           { code: "RMB", name: "Medium, Barrel", desc: "A root mass in the barrel/wall, typically growing through a defect (fracture, hole, etc). Use two codes and matching clock positions for both sides.", photo: "img/codes/rmb.jpg" },
           { code: "RMC", name: "Medium, Connection", desc: "A root mass between 5% and 50% CSL, growing in around a tap connection. Only coded on break-in/saddle/intruding taps.", photo: "img/codes/rmc.jpg" },
           { code: "RMJ", name: "Medium, Joint", desc: "A root mass between 5% and 50% CSL, directly at the joint. Use two codes and matching clock positions for both sides.", photo: "img/codes/rmj.jpg" },
@@ -812,7 +812,7 @@ const CODES = {
           { code: "JAS", name: "Joint Angular Small", desc: "Out of alignment up to 5°. Caused by pipe movement (usually lost support), unintentionally changing flow direction — shown as left-right snaking of the pipe visible in the flow.", photo: "img/codes/jas.jpg" },
           { code: "JOL", name: "Joint Offset Large", desc: "Displaced more than 1.5x pipe wall thickness. Normalized coding adds HSV/HVV when soil/voids are also visible at the JOL; under NASSCO Pure, whether HSV/HVV applies is debatable and depends on the reviewer.", photo: "img/codes/jol.jpg" },
           { code: "JOLD", noV6: true, name: "Joint Offset Large, Defective", desc: "A Joint Offset Large (JOL) displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the offset is actually disrupting water flow.", photo: "img/codes/jold.jpg" },
-          { code: "JOM", name: "Joint Offset Medium", desc: "Displaced more than 1 but less than 1.5x the pipe wall thickness." },
+          { code: "JOM", name: "Joint Offset Medium", desc: "Displaced more than 1 but less than 1.5x the pipe wall thickness.", photo: "img/codes/jom.jpg" },
           { code: "JOMD", noV6: true, name: "Joint Offset Medium, Defective", desc: "A Joint Offset Medium (JOM) displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the offset is actually disrupting water flow." },
           { code: "JOS", name: "Joint Offset Small", desc: "Displaced less than 1x pipe wall thickness — a minor offset, not yet significant enough to reach Medium." },
           { code: "JOSD", noV6: true, name: "Joint Offset Small, Defective", desc: "A Joint Offset Small (JOS) displaced enough to disrupt flow — doesn't exist in V6. Whether the Defective modifier applies depends on whether the offset is actually disrupting water flow." },
@@ -904,7 +904,7 @@ const CODES = {
           { code: "RPL", name: "Liner", desc: "A short trenchless repair with a different texture than the host pipe — you can often see the spot liner's edge or leftover resin on the host pipe wall.", photo: "img/codes/rpl.jpg" },
           { code: "RPLD", name: "Liner Defective", desc: "The localized liner repair (RPL) wasn't effective, was damaged during installation, or is otherwise failing — sections hanging or loose at the edges are the most common trigger. Enter the resulting defect codes as new observations." },
           { code: "RPP", name: "Patch", desc: "A patch installed over a defect from OUTSIDE the pipe. RPP can resemble HSV, but soil isn't uniformly flat — if the surface is unusually even and flat, it's more likely an RPP. Remarks should note the patch material.", photo: "img/codes/rpp.jpg" },
-          { code: "RPPD", name: "Patch Defective", desc: "The patch wasn't effective, was damaged during installation, or is otherwise failing. Enter the resulting defect codes as new observations — any defect at the patch makes it defective.", photo: "img/codes/rppd.jpg" },
+          { code: "RPPD", name: "Patch Defective", desc: "The patch wasn't effective, was damaged during installation, or is otherwise failing. Enter the resulting defect codes as new observations — any defect at the patch makes it defective." },
           { code: "RPR", name: "Replacement", desc: "A section of pipe has been replaced, possibly in a different material. A color/texture change at a tap fitting (e.g. PVC green-to-white, or DIP's cast-iron tap fittings) is NOT an RPR or MMC by itself. An RPR of the same material as the host pipe is still an RPR — it's an obviously new, short section, not necessarily a material change.", photo: "img/codes/rpr.jpg" },
           { code: "RPRD", name: "Replacement Defective", desc: "The replacement wasn't effective, was damaged during installation, wasn't long enough to correct the original defects, or damaged the host pipe. Enter the resulting defect codes as new observations (e.g. an RPRD due to a JOL gets followed by a JOL code) — any defect at the RPR makes it defective.", photo: "img/codes/rprd.jpg" },
           { code: "RPZ", name: "Other", desc: "A point repair not classified as Liner, Patch, or Replacement — remarks required. In V6/V7 this also covered what V8 split out as its own RPM (Mechanical Sleeve) code; note the method/material in Remarks (e.g. \"mechanical sleeve\")." },
