@@ -587,6 +587,14 @@ html, body {
 }
 .defect-threshold b { color: var(--text); }
 
+.defect-photo {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
 .notes-block {
   margin-top: 4px;
   margin-bottom: 6px;

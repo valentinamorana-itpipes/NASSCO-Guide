@@ -45,7 +45,7 @@
     if (versionFilter !== "v6") {
       return defects
         .filter((d) => !(versionFilter === "v7" && d.noV7))
-        .map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold, isNote: d.isNote, sourceCodes: [d.code] }));
+        .map((d) => ({ code: displayCode(d), name: d.name, desc: d.desc, threshold: d.threshold, photo: d.photo, isNote: d.isNote, sourceCodes: [d.code] }));
     }
     const seen = new Map();
     const out = [];
@@ -53,11 +53,13 @@
       if (d.noV6) continue;
       const code = d.codeV6 || d.code;
       if (seen.has(code)) {
-        out[seen.get(code)].sourceCodes.push(d.code);
+        const existing = out[seen.get(code)];
+        existing.sourceCodes.push(d.code);
+        if (!existing.photo && d.photo) existing.photo = d.photo;
         continue;
       }
       seen.set(code, out.length);
-      out.push({ code, name: d.nameV6 || d.name, desc: d.descV6 || d.desc, threshold: d.codeV6 ? undefined : d.threshold, isNote: d.isNote, sourceCodes: [d.code] });
+      out.push({ code, name: d.nameV6 || d.name, desc: d.descV6 || d.desc, threshold: d.codeV6 ? undefined : d.threshold, photo: d.photo, isNote: d.isNote, sourceCodes: [d.code] });
     }
     return out;
   }
@@ -353,6 +355,7 @@
               <span class="defect-name">${esc(d.name)}</span>
             </div>
             <div class="defect-desc">${esc(d.desc)}</div>
+            ${d.photo ? `<img class="defect-photo" src="${esc(d.photo)}" alt="${esc(d.name)} example" loading="lazy" />` : ""}
           `;
         }
         if (focusCode && d.sourceCodes && d.sourceCodes.includes(focusCode)) {
